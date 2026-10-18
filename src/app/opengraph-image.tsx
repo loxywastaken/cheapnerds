@@ -7,5 +7,5 @@ export const contentType = "image/png";
 
 export default async function OpengraphImage() {
   const settings = await getSettings();
-  return renderOgImage({ eyebrow: "Roblox game studio", title: settings.hero.title, subtitle: settings.hero.subtitle, siteName: settings.siteName });
+  return renderOgImage({ eyebrow: "Roblox games", title: settings.hero.title, subtitle: settings.hero.subtitle, siteName: settings.siteName });
 }

@@ -19,8 +19,8 @@ export default async function UpdatesPage() {
   const [lead, ...rest] = posts;
   return (
     <>
-      <PageHeader eyebrow="News & updates" title="What's new" description="Releases, patch notes, dev progress, events and sneak peeks — straight from the team." />
-      <div className="container-page space-y-14 pt-14">
+      <PageHeader title="News" description="Releases, patch notes, dev progress and the occasional sneak peek." />
+      <div className="container-page space-y-14 pt-6">
         {!lead ? (
           <EmptyState icon={Newspaper} title="No posts yet">
             Our first announcements are coming soon.

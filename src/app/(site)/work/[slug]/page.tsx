@@ -53,7 +53,7 @@ async function ProjectDetail({ params }: Pick<PageProps<"/work/[slug]">, "params
       </Link>
       <header className="mt-8">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="eyebrow">{PROJECT_CATEGORY_LABELS[project.category]}</span>
+          <span className="font-display font-semibold text-strong/70">{PROJECT_CATEGORY_LABELS[project.category]}</span>
           <ProjectStatusBadge status={project.status} />
         </div>
         <h1 className="text-outline-white mt-4 text-4xl font-bold leading-[1.05] sm:text-6xl">{project.title}</h1>

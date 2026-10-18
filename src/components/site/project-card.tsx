@@ -18,7 +18,7 @@ export function ProjectCard({ project }: { project: Pick<Project, "slug" | "titl
         </span>
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <p className="eyebrow !text-[0.66rem] !text-subtle">{PROJECT_CATEGORY_LABELS[project.category]}</p>
+        <p className="text-xs font-medium text-subtle">{PROJECT_CATEGORY_LABELS[project.category]}</p>
         <h3 className="mt-2 text-lg font-semibold text-strong">
           <Link href={`/work/${project.slug}`} className="after:absolute after:inset-0 after:z-[1] focus-visible:outline-none">
             {project.title}

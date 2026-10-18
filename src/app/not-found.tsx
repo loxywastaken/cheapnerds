@@ -18,7 +18,7 @@ export default function NotFound() {
           4<span className="text-outline-gold">0</span>4
         </p>
         <h1 className="mt-6 text-2xl font-bold text-strong sm:text-3xl">You fell out of the map</h1>
-        <p className="mt-3 font-medium text-strong/75">This page doesn&apos;t exist — it may have been moved, or the link is broken. Let&apos;s respawn you somewhere safe.</p>
+        <p className="mt-3 font-medium text-strong/75">This page doesn&apos;t exist. It might have moved, or the link is broken.</p>
         <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
           <Link href="/" className={buttonClass("primary", "lg")}>
             <ArrowLeft className="size-4" aria-hidden="true" /> Back home

@@ -46,7 +46,7 @@ export function SiteFooter({ settings, year }: { settings: SiteSettings; year: n
           </div>
 
           <nav aria-label="Footer">
-            <h2 className="eyebrow mb-4 !text-subtle">Explore</h2>
+            <h2 className="mb-4 font-display text-base font-semibold text-strong">Explore</h2>
             <ul className="space-y-2.5">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
@@ -59,7 +59,7 @@ export function SiteFooter({ settings, year }: { settings: SiteSettings; year: n
           </nav>
 
           <div>
-            <h2 className="eyebrow mb-4 !text-subtle">Community</h2>
+            <h2 className="mb-4 font-display text-base font-semibold text-strong">Community</h2>
             <ul className="space-y-2.5 text-sm">
               {settings.roblox.groupUrl && (
                 <li>

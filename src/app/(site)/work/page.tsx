@@ -16,12 +16,8 @@ export default async function WorkPage() {
   const projects = await getProjects();
   return (
     <>
-      <PageHeader
-        eyebrow="Portfolio"
-        title="Our work"
-        description="Games, interfaces, models, tools and experiments — everything the studio has designed and built."
-      />
-      <div className="container-page pt-14">
+      <PageHeader title="Our work" description="Games, UI, models, websites and the odd experiment." />
+      <div className="container-page pt-6">
         {projects.length === 0 ? (
           <EmptyState icon={Boxes} title="Portfolio coming soon">
             We&apos;re putting together a showcase of our projects.

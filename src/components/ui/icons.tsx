@@ -1,35 +1,4 @@
-import {
-  Calendar,
-  FlaskConical,
-  Gamepad2,
-  Gift,
-  Heart,
-  Megaphone,
-  MessageCircle,
-  Rocket,
-  Shield,
-  Sparkles,
-  Trophy,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
 import type { SVGProps } from "react";
-import type { FeatureIcon } from "@/lib/constants";
-
-export const featureIcons: Record<FeatureIcon, LucideIcon> = {
-  sparkles: Sparkles,
-  gamepad: Gamepad2,
-  users: Users,
-  megaphone: Megaphone,
-  gift: Gift,
-  trophy: Trophy,
-  calendar: Calendar,
-  flask: FlaskConical,
-  shield: Shield,
-  message: MessageCircle,
-  rocket: Rocket,
-  heart: Heart,
-};
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number };
 

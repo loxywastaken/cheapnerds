@@ -72,7 +72,7 @@ export async function renderOgImage({
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", alignSelf: "flex-start", fontSize: 22, letterSpacing: 3, textTransform: "uppercase", color: "#2a1b0b", background: "#ffffff", border: "4px solid #2a1b0b", borderRadius: 999, padding: "6px 18px", marginBottom: 22 }}>{eyebrow}</div>
+            <div style={{ display: "flex", alignSelf: "flex-start", fontFamily: "Fredoka", fontSize: 26, color: "#2a1b0b", background: "#ffffff", border: "4px solid #2a1b0b", borderRadius: 999, padding: "4px 20px", marginBottom: 22 }}>{eyebrow}</div>
             <div style={{ fontFamily: "Fredoka", fontSize: 72, lineHeight: 1.04, color: "#1f1306" }}>
               {title.length > 60 ? `${title.slice(0, 58)}…` : title}
             </div>

@@ -109,15 +109,6 @@
     .container-page { padding-inline: 2rem; }
   }
 
-  /* Small uppercase mono label used for section eyebrows. */
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-brand);
-  }
-
   /* Base panel: a quiet surface with a hairline border and a faint top highlight. */
   .panel {
     position: relative;
@@ -320,18 +311,6 @@
   .theme-cartoon .spotlight:hover {
     transform: translateY(-4px) rotate(-0.4deg);
     box-shadow: 0 10px 0 var(--color-outline);
-  }
-  /* Sticker-style label used for section eyebrows. */
-  .theme-cartoon .sticker {
-    display: inline-block;
-    padding: 0.35rem 0.8rem;
-    border: 2.5px solid var(--color-outline);
-    border-radius: 999px;
-    background: #ffffff;
-    color: var(--color-outline);
-    font-weight: 600;
-    box-shadow: 0 3px 0 var(--color-outline);
-    transform: rotate(-2deg);
   }
   /* Status chips become solid stickers so they read on photos and on yellow. */
   .theme-cartoon .chip-solid {

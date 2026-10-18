@@ -10,7 +10,7 @@ import { getGames } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Games",
-  description: "Discover and play every Roblox game made by Cheap Nerds — released hits, games in development and what's coming next.",
+  description: "Every Roblox game made by Cheap Nerds: what's out now, what we're building and what's coming next.",
 };
 
 export default async function GamesPage() {
@@ -19,12 +19,8 @@ export default async function GamesPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Roblox games"
-        title="Games by Cheap Nerds"
-        description="Everything we've built on Roblox — jump straight in, follow what's in development, or see what's coming next."
-      />
-      <div className="container-page space-y-24 pt-14">
+      <PageHeader title="Games" description="Everything we've put out on Roblox, plus what we're still building." />
+      <div className="container-page space-y-20 pt-6">
         {games.length === 0 ? (
           <EmptyState icon={Gamepad2} title="No games published yet">
             We&apos;re hard at work on our first experiences. Check back soon or join our Discord for sneak peeks.
@@ -33,7 +29,7 @@ export default async function GamesPage() {
           <>
             {featured.length > 0 && (
               <section aria-labelledby="featured">
-                <SectionHeading eyebrow="Spotlight" title={<span id="featured">Featured</span>} className="mb-8" />
+                <SectionHeading title={<span id="featured">Featured</span>} className="mb-8" />
                 {featured.length === 1 ? (
                   <Reveal>
                     <GameCard game={featured[0]} layout="wide" preload />
@@ -50,7 +46,7 @@ export default async function GamesPage() {
               </section>
             )}
             <section aria-labelledby="all-games">
-              <SectionHeading eyebrow="Library" title={<span id="all-games">All games</span>} className="mb-8" />
+              <SectionHeading title={<span id="all-games">All games</span>} className="mb-8" />
               <FilterableGrid
                 searchPlaceholder="Search games…"
                 emptyLabel="No games match that search."

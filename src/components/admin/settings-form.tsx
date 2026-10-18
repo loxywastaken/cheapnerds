@@ -3,8 +3,6 @@
 import { ArrowDown, ArrowUp, Plus, Save, Trash2 } from "lucide-react";
 import { useState, type ChangeEvent } from "react";
 import { saveSettings } from "@/app/admin/actions/settings";
-import { featureIcons } from "@/components/ui/icons";
-import { FEATURE_ICONS, type FeatureIcon } from "@/lib/constants";
 import type { FeatureItem, SiteSettings } from "@/lib/settings";
 import { cn } from "@/lib/utils";
 import { ActionForm, useFieldError } from "./action-form";
@@ -47,9 +45,6 @@ export function SettingsForm({ initial, games }: { initial: SiteSettings; games:
 
       <FormSection title="Homepage" description="The hero at the top of the homepage and the studio introduction.">
         <div className="grid gap-5 sm:grid-cols-2">
-          <Row label="Eyebrow" path="hero.eyebrow">
-            <input {...text("hero.eyebrow")} className={inputClass} maxLength={60} />
-          </Row>
           <Row label="Featured game in hero" path="hero.featuredGameId" hint="Defaults to the first featured game.">
             <select {...text("hero.featuredGameId")} className={inputClass}>
               <option value="">Automatic</option>
@@ -196,24 +191,11 @@ function FeatureListEditor({ label, path, items, onChange }: { label: string; pa
       <legend className="text-sm font-medium text-fg">{label}</legend>
       {error && <p className="text-xs text-danger">{error}</p>}
       {items.map((item, i) => {
-        const Icon = featureIcons[item.icon];
         return (
-          <div key={i} className="grid gap-3 rounded-2xl border border-line bg-ink/30 p-3 sm:grid-cols-[9rem_1fr_auto]">
-            <div className="flex items-center gap-2">
-              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-surface-2 text-brand-soft">
-                <Icon className="size-4" aria-hidden="true" />
-              </span>
-              <select aria-label="Icon" value={item.icon} onChange={(e) => set(i, { icon: e.target.value as FeatureIcon })} className={cn(inputClass, "py-2")}>
-                {FEATURE_ICONS.map((icon) => (
-                  <option key={icon} value={icon}>
-                    {icon}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div key={i} className="grid gap-3 rounded-2xl border border-line bg-ink/30 p-3 sm:grid-cols-[1fr_auto]">
             <div className="space-y-2">
-              <input aria-label="Title" name={`${path}.${i}.title`} value={item.title} onChange={(e) => set(i, { title: e.target.value })} className={cn(inputClass, "py-2")} placeholder="Title" maxLength={60} />
-              <input aria-label="Description" value={item.body} onChange={(e) => set(i, { body: e.target.value })} className={cn(inputClass, "py-2")} placeholder="Short description" maxLength={240} />
+              <input aria-label="Title" name={`${path}.${i}.title`} value={item.title} onChange={(e) => set(i, { title: e.target.value })} className={cn(inputClass, "py-2")} placeholder="e.g. Get into playtests early" maxLength={80} />
+              <input aria-label="Description" value={item.body} onChange={(e) => set(i, { body: e.target.value })} className={cn(inputClass, "py-2")} placeholder="Optional extra detail" maxLength={240} />
             </div>
             <div className="flex gap-1 sm:flex-col">
               <SmallBtn label="Move up" onClick={() => move(i, -1)} disabled={i === 0}>
@@ -232,7 +214,7 @@ function FeatureListEditor({ label, path, items, onChange }: { label: string; pa
       {items.length < 8 && (
         <button
           type="button"
-          onClick={() => onChange([...items, { icon: "sparkles", title: "", body: "" }])}
+          onClick={() => onChange([...items, { title: "", body: "" }])}
           className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.06] px-3.5 py-2 text-sm text-white hover:bg-white/10"
         >
           <Plus className="size-4" aria-hidden="true" /> Add item

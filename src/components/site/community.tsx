@@ -1,170 +1,141 @@
 import Image from "next/image";
-import { ArrowUpRight, BadgeCheck, BookOpen, Users } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
-import { DiscordIcon, RobloxIcon, featureIcons } from "@/components/ui/icons";
-import { Reveal } from "@/components/ui/reveal";
-import { DEFAULT_LOGO } from "./logo";
-import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { DiscordIcon, RobloxIcon } from "@/components/ui/icons";
 import type { DiscordServer } from "@/lib/discord";
 import type { RobloxGroup } from "@/lib/roblox";
 import type { FeatureItem, SiteSettings } from "@/lib/settings";
 import { cn, formatNumber } from "@/lib/utils";
+import { DEFAULT_LOGO } from "./logo";
 
-function FeatureGrid({ items, columns = 2 }: { items: FeatureItem[]; columns?: 2 | 4 }) {
+/** Short perk list with hand-drawn style ticks. */
+function Perks({ items, tone = "light" }: { items: FeatureItem[]; tone?: "light" | "dark" }) {
   if (items.length === 0) return null;
   return (
-    <ul className={cn("grid gap-3 sm:grid-cols-2", columns === 4 && "lg:grid-cols-4")}>
-      {items.map((item, i) => {
-        const Icon = featureIcons[item.icon];
-        return (
-          <Reveal as="li" key={`${item.title}-${i}`} delay={i * 0.06}>
-            <SpotlightCard className="h-full p-5">
-              <div className="mb-4 grid size-10 place-items-center rounded-xl border border-line bg-surface-2 text-brand-soft">
-                <Icon className="size-[1.1rem]" aria-hidden="true" />
-              </div>
-              <h3 className="font-semibold text-strong">{item.title}</h3>
-              {item.body && <p className="mt-1.5 text-sm leading-relaxed text-muted">{item.body}</p>}
-            </SpotlightCard>
-          </Reveal>
-        );
-      })}
+    <ul className="mt-5 space-y-2.5">
+      {items.map((item, i) => (
+        <li key={`${item.title}-${i}`} className="flex gap-3">
+          <svg viewBox="0 0 24 24" className="mt-0.5 size-5 shrink-0" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill={tone === "dark" ? "#ffffff" : "#3fd43a"} stroke="#2a1b0b" strokeWidth="2.5" />
+            <path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke={tone === "dark" ? "#4450d4" : "#2a1b0b"} strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="leading-snug">
+            <span className="font-semibold text-strong">{item.title}</span>
+            {item.body && <span className="text-muted"> {item.body}</span>}
+          </span>
+        </li>
+      ))}
     </ul>
   );
 }
 
-/** Live member count chip. Renders nothing when Roblox/Discord didn't report a number. */
-function LiveCount({ value, label, pulse }: { value: number | null | undefined; label: string; pulse?: boolean }) {
-  if (value == null) return null;
-  return (
-    <span className="inline-flex items-center gap-2 rounded-full border-2 border-outline bg-surface px-3 py-1.5 text-sm text-fg shadow-[0_2px_0_var(--color-outline)]">
-      <span className={cn("size-2 rounded-full", pulse ? "animate-pulse-dot bg-ok" : "bg-brand-soft")} aria-hidden="true" />
-      <span className="font-semibold tabular-nums">{formatNumber(value)}</span>
-      <span className="text-muted">{label}</span>
-    </span>
-  );
-}
-
-export function GroupPromo({
-  settings,
-  group,
-  withReasons = true,
-}: {
-  settings: SiteSettings;
-  group: RobloxGroup | null;
-  withReasons?: boolean;
-}) {
+export function GroupCard({ settings, group, className }: { settings: SiteSettings; group: RobloxGroup | null; className?: string }) {
   const name = group?.name || `${settings.siteName} Group`;
   const description = settings.roblox.descriptionOverride || group?.description || "";
   const banner = settings.roblox.bannerUrl || null;
   const joinUrl = settings.roblox.groupUrl;
 
   return (
-    <div className="space-y-6">
-      <Reveal>
-        <SpotlightCard className="overflow-hidden">
-          <div className="relative h-40 overflow-hidden sm:h-56">
-            {banner ? (
-              <Image src={banner} alt="" fill sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover" />
-            ) : (
-              <div className="absolute inset-0 overflow-hidden bg-[radial-gradient(ellipse_at_15%_120%,rgb(255_170_30/0.45),transparent_60%),radial-gradient(ellipse_at_95%_0%,rgb(168_207_234/0.18),transparent_55%),var(--color-surface-2)]">
-                <div className="sunburst absolute left-[12%] top-full size-[70rem] -translate-x-1/2 -translate-y-1/2 animate-spin-slow" />
-              </div>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent" aria-hidden="true" />
+    <div className={cn("panel flex flex-col overflow-hidden", className)}>
+      {banner && (
+        <div className="relative h-32 border-b-[3px] border-outline sm:h-40">
+          <Image src={banner} alt="" fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
+        </div>
+      )}
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
+        <div className="flex items-center gap-4">
+          <div className="relative size-16 shrink-0 -rotate-3 overflow-hidden rounded-2xl border-[3px] border-outline bg-surface-3 shadow-[0_4px_0_var(--color-outline)]">
+            <Image src={group?.iconUrl || settings.branding.logoUrl || DEFAULT_LOGO} alt="" fill sizes="64px" className="object-cover" />
           </div>
-          <div className="relative px-5 pb-6 sm:px-8 sm:pb-8">
-            <div className="-mt-14 flex flex-col gap-5 sm:-mt-16 sm:flex-row sm:items-end sm:justify-between">
-              <div className="flex items-end gap-4">
-                <div className="relative size-24 shrink-0 -rotate-3 overflow-hidden rounded-3xl border-[3px] border-outline bg-surface-3 shadow-[0_5px_0_var(--color-outline)] sm:size-28">
-                  <Image src={group?.iconUrl || settings.branding.logoUrl || DEFAULT_LOGO} alt={`${name} icon`} fill sizes="112px" className="object-cover" />
-                </div>
-                <div className="pb-1">
-                  <p className="eyebrow !text-[0.66rem]">Official Roblox group</p>
-                  <h3 className="mt-1 flex items-center gap-2 text-2xl font-semibold text-strong sm:text-3xl">
-                    {name}
-                    {group?.verified && <BadgeCheck className="size-5 text-ice-soft" aria-label="Verified" />}
-                  </h3>
-                </div>
-              </div>
-              {joinUrl && (
-                <a href={joinUrl} target="_blank" rel="noopener noreferrer" className={buttonClass("primary", "md", "relative z-[4] w-full sm:w-auto")}>
-                  <RobloxIcon size={16} />
-                  Join Group
-                  <ArrowUpRight className="size-4" aria-hidden="true" />
-                </a>
+          <div className="min-w-0">
+            <h3 className="flex items-center gap-1.5 text-2xl font-bold text-strong">
+              <span className="truncate">{name}</span>
+              {group?.verified && <BadgeCheck className="size-5 shrink-0 text-ice-deep" aria-label="Verified" />}
+            </h3>
+            <p className="text-sm text-muted">
+              Roblox group
+              {group?.memberCount != null && (
+                <>
+                  {" · "}
+                  <span className="font-semibold text-strong">{formatNumber(group.memberCount)}</span> members
+                </>
               )}
-            </div>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <LiveCount value={group?.memberCount} label="members" />
-              {group?.ownerName && (
-                <span className="inline-flex items-center gap-2 rounded-full border-2 border-outline bg-surface px-3 py-1.5 text-sm text-muted shadow-[0_2px_0_var(--color-outline)]">
-                  <Users className="size-3.5" aria-hidden="true" /> Owned by {group.ownerName}
-                </span>
-              )}
-            </div>
-            {description && <p className="mt-5 max-w-3xl whitespace-pre-line text-[0.95rem] leading-relaxed text-muted">{description}</p>}
+            </p>
           </div>
-        </SpotlightCard>
-      </Reveal>
-      {withReasons && <FeatureGrid items={settings.roblox.reasons} columns={4} />}
+        </div>
+        {description && <p className="mt-5 line-clamp-4 whitespace-pre-line leading-relaxed text-muted">{description}</p>}
+        <Perks items={settings.roblox.reasons} />
+        {joinUrl && (
+          <div className="mt-auto pt-7">
+            <a href={joinUrl} target="_blank" rel="noopener noreferrer" className={buttonClass("primary", "lg", "w-full sm:w-auto")}>
+              <RobloxIcon size={17} />
+              Join the group
+            </a>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-export function DiscordPromo({
-  settings,
-  server,
-  withBenefits = true,
-}: {
-  settings: SiteSettings;
-  server: DiscordServer | null;
-  withBenefits?: boolean;
-}) {
+export function DiscordCard({ settings, server, className }: { settings: SiteSettings; server: DiscordServer | null; className?: string }) {
   const inviteUrl = settings.discord.inviteUrl;
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr]">
-      <Reveal className="h-full">
-        <div className="theme-night relative h-full overflow-hidden rounded-3xl border-[3px] border-outline bg-[linear-gradient(160deg,#6f7bff,#5865f2_45%,#4450d4)] p-6 shadow-[0_6px_0_var(--color-outline)] sm:p-8">
-          <DiscordIcon size={220} className="pointer-events-none absolute -bottom-10 -right-8 text-white/10" />
-          <div className="relative">
-            <div className="flex items-center gap-4">
-              <div className="relative size-16 shrink-0 overflow-hidden rounded-2xl border-[3px] border-outline bg-[#5865F2] text-white shadow-[0_3px_0_var(--color-outline)]">
-                {server?.iconUrl ? (
-                  <Image src={server.iconUrl} alt={`${server.name} server icon`} fill sizes="64px" className="object-cover" unoptimized={server.iconUrl.includes(".gif")} />
-                ) : (
-                  <span className="grid size-full place-items-center">
-                    <DiscordIcon size={30} />
-                  </span>
-                )}
-              </div>
-              <div>
-                <p className="eyebrow !text-white/85">Discord community</p>
-                <h3 className="mt-1 text-2xl font-semibold text-strong sm:text-3xl">{server?.name || settings.siteName}</h3>
-              </div>
-            </div>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <LiveCount value={server?.onlineCount} label="online now" pulse />
-              <LiveCount value={server?.memberCount} label="members" />
-            </div>
-            <p className="mt-5 max-w-lg leading-relaxed text-fg/80">{settings.discord.description || server?.description}</p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              {inviteUrl && (
-                <a href={inviteUrl} target="_blank" rel="noopener noreferrer" className={buttonClass("discord", "lg")}>
-                  <DiscordIcon size={19} />
-                  Join Discord
-                </a>
+    <div
+      className={cn(
+        "theme-night relative flex flex-col overflow-hidden rounded-3xl border-[3px] border-outline bg-[linear-gradient(160deg,#6f7bff,#5865f2_45%,#4450d4)] p-6 shadow-[0_6px_0_var(--color-outline)] sm:p-7",
+        className,
+      )}
+    >
+      <DiscordIcon size={200} className="pointer-events-none absolute -bottom-10 -right-8 text-white/10" />
+      <div className="relative flex flex-1 flex-col">
+        <div className="flex items-center gap-4">
+          <div className="relative size-16 shrink-0 rotate-3 overflow-hidden rounded-2xl border-[3px] border-outline bg-[#5865F2] text-white shadow-[0_4px_0_var(--color-outline)]">
+            {server?.iconUrl ? (
+              <Image src={server.iconUrl} alt="" fill sizes="64px" className="object-cover" unoptimized={server.iconUrl.includes(".gif")} />
+            ) : (
+              <span className="grid size-full place-items-center">
+                <DiscordIcon size={30} />
+              </span>
+            )}
+          </div>
+          <div className="min-w-0">
+            <h3 className="truncate text-2xl font-bold text-white">{server?.name || settings.siteName}</h3>
+            <p className="text-sm text-white/80">
+              Discord server
+              {server?.onlineCount != null && (
+                <>
+                  {" · "}
+                  <span className="font-semibold text-white">{formatNumber(server.onlineCount)}</span> online
+                </>
               )}
-              {settings.discord.rulesUrl && (
-                <a href={settings.discord.rulesUrl} target="_blank" rel="noopener noreferrer" className={buttonClass("secondary", "lg")}>
-                  <BookOpen className="size-4" aria-hidden="true" />
-                  Server rules
-                </a>
+              {server?.memberCount != null && (
+                <>
+                  {" · "}
+                  <span className="font-semibold text-white">{formatNumber(server.memberCount)}</span> members
+                </>
               )}
-            </div>
+            </p>
           </div>
         </div>
-      </Reveal>
-      {withBenefits && <FeatureGrid items={settings.discord.benefits} />}
+        {(settings.discord.description || server?.description) && (
+          <p className="mt-5 leading-relaxed text-white/85">{settings.discord.description || server?.description}</p>
+        )}
+        <Perks items={settings.discord.benefits} tone="dark" />
+        <div className="mt-auto flex flex-col gap-3 pt-7 sm:flex-row sm:items-center">
+          {inviteUrl && (
+            <a href={inviteUrl} target="_blank" rel="noopener noreferrer" className={buttonClass("secondary", "lg")}>
+              <DiscordIcon size={19} className="text-[#5865F2]" />
+              Join the Discord
+            </a>
+          )}
+          {settings.discord.rulesUrl && (
+            <a href={settings.discord.rulesUrl} target="_blank" rel="noopener noreferrer" className="font-display font-semibold text-white underline decoration-2 underline-offset-4 hover:no-underline">
+              Read the rules
+            </a>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

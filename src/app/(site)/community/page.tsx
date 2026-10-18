@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Megaphone } from "lucide-react";
-import { DiscordPromo, GroupPromo } from "@/components/site/community";
+import { Megaphone } from "lucide-react";
+import { DiscordCard, GroupCard } from "@/components/site/community";
 import { GameCard } from "@/components/site/game-card";
 import { PostCard } from "@/components/site/post-card";
-import { buttonClass } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/ui/reveal";
-import { PageHeader, SectionHeading } from "@/components/ui/section-heading";
+import { PageHeader, SectionHeading, TextLink } from "@/components/ui/section-heading";
 import { getGames, getPosts, getSettings } from "@/lib/data";
 import { getDiscordServer } from "@/lib/discord";
 import { getRobloxGroup } from "@/lib/roblox";
 
 export const metadata: Metadata = {
   title: "Community",
-  description: "Join the Cheap Nerds Roblox group and Discord server — early access, events, sneak peeks and a friendly community.",
+  description: "Join the Cheap Nerds Roblox group and Discord server for playtests, events and sneak peeks.",
 };
 
 export default async function CommunityPage() {
@@ -31,58 +29,47 @@ export default async function CommunityPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Community"
-        title="Come build with us"
-        description="Our Roblox group and Discord server are where players, testers and the team meet. Pick your favourite — or join both."
-      />
-      <div className="container-page space-y-28 pt-14">
-        <section aria-labelledby="group">
-          <SectionHeading eyebrow="Roblox" title={<span id="group">Roblox group</span>} description="Why join the group?" className="mb-10" />
-          <GroupPromo settings={settings} group={group} />
-          {groupGames.length > 0 && (
-            <div className="mt-14">
-              <h3 className="mb-6 text-xl font-semibold text-strong">Games from the group</h3>
-              <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {groupGames.map((game, i) => (
-                  <Reveal as="li" key={game.id} delay={i * 0.06}>
-                    <GameCard game={game} />
-                  </Reveal>
-                ))}
-              </ul>
-            </div>
-          )}
-        </section>
+      <PageHeader title="Community" description="The group gets you perks in our games. The Discord is where we actually hang out." />
+      <div className="container-page space-y-24 pt-6">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Reveal className="h-full">
+            <GroupCard settings={settings} group={group} className="h-full" />
+          </Reveal>
+          <Reveal delay={0.08} className="h-full">
+            <DiscordCard settings={settings} server={discord} className="h-full" />
+          </Reveal>
+        </div>
 
-        <section aria-labelledby="discord">
-          <SectionHeading eyebrow="Discord" title={<span id="discord">Discord server</span>} description="What you get when you join." className="mb-10" />
-          <DiscordPromo settings={settings} server={discord} />
-        </section>
-
-        <section aria-labelledby="announcements">
-          <SectionHeading
-            eyebrow="Bulletin"
-            title={<span id="announcements">Community announcements</span>}
-            action={
-              <Link href="/updates?filter=community" className={buttonClass("secondary", "md")}>
-                All news <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-            }
-            className="mb-10"
-          />
-          {announcements.length > 0 ? (
-            <ul className="grid gap-5 md:grid-cols-3">
-              {announcements.map((post, i) => (
-                <Reveal as="li" key={post.id} delay={i * 0.06}>
-                  <PostCard post={post} />
+        {groupGames.length > 0 && (
+          <section aria-labelledby="group-games">
+            <SectionHeading title={<span id="group-games">Games from the group</span>} action={<TextLink href="/games">All games</TextLink>} />
+            <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {groupGames.map((game, i) => (
+                <Reveal as="li" key={game.id} delay={i * 0.06}>
+                  <GameCard game={game} />
                 </Reveal>
               ))}
             </ul>
-          ) : (
-            <EmptyState icon={Megaphone} title="No community announcements yet">
-              Events and community news will show up here.
-            </EmptyState>
-          )}
+          </section>
+        )}
+
+        <section aria-labelledby="announcements">
+          <SectionHeading title={<span id="announcements">Announcements</span>} action={<TextLink href="/updates?filter=community">All news</TextLink>} />
+          <div className="mt-8">
+            {announcements.length > 0 ? (
+              <ul className="grid gap-6 md:grid-cols-3">
+                {announcements.map((post, i) => (
+                  <Reveal as="li" key={post.id} delay={i * 0.06}>
+                    <PostCard post={post} />
+                  </Reveal>
+                ))}
+              </ul>
+            ) : (
+              <EmptyState icon={Megaphone} title="Nothing yet">
+                Events and community news will show up here.
+              </EmptyState>
+            )}
+          </div>
         </section>
       </div>
     </>

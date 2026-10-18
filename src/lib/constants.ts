@@ -45,23 +45,6 @@ export const POST_CATEGORY_LABELS: Record<PostCategory, string> = {
   teaser: "Sneak Peek",
 };
 
-/** Icons an admin can pick for "reasons to join" / "community benefits" cards. */
-export const FEATURE_ICONS = [
-  "sparkles",
-  "gamepad",
-  "users",
-  "megaphone",
-  "gift",
-  "trophy",
-  "calendar",
-  "flask",
-  "shield",
-  "message",
-  "rocket",
-  "heart",
-] as const;
-export type FeatureIcon = (typeof FEATURE_ICONS)[number];
-
 export const CACHE_TAGS = {
   settings: "settings",
   games: "games",

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { FEATURE_ICONS } from "./constants";
 
 const optionalUrl = z.union([z.literal(""), z.url({ protocol: /^https?$/ })]).default("");
 const optionalMediaUrl = z
@@ -7,8 +6,7 @@ const optionalMediaUrl = z
   .default("");
 
 const feature = z.object({
-  icon: z.enum(FEATURE_ICONS).default("sparkles"),
-  title: z.string().trim().min(1).max(60),
+  title: z.string().trim().min(1, "Required").max(80),
   body: z.string().trim().max(240).default(""),
 });
 
@@ -18,10 +16,9 @@ export const settingsSchema = z.object({
     .string()
     .trim()
     .max(300)
-    .default("Cheap Nerds is a Roblox game studio and community. We create games, build experiences, and bring ideas to life."),
+    .default("Cheap Nerds is a Roblox game studio and community. We make games, build experiences and bring ideas to life."),
   hero: z
     .object({
-      eyebrow: z.string().trim().max(60).default("Roblox game studio & community"),
       title: z.string().trim().min(1).max(80).default("Welcome to Cheap Nerds"),
       subtitle: z.string().trim().max(240).default("We create games, build experiences, and bring ideas to life."),
       featuredGameId: z.string().default(""),
@@ -29,13 +26,13 @@ export const settingsSchema = z.object({
     .prefault({}),
   about: z
     .object({
-      title: z.string().trim().max(80).default("A small studio with big ideas"),
+      title: z.string().trim().max(80).default("Who we are"),
       body: z
         .string()
         .trim()
         .max(800)
         .default(
-          "Cheap Nerds is a group of Roblox developers who build the games we want to play. We design, script, model and ship everything ourselves, and we build it in the open with our community.",
+          "We're a small group of Roblox devs making the games we'd want to play ourselves. Scripting, building, modelling and UI all happen in-house, and most of it gets tested by people in our Discord first.",
         ),
     })
     .prefault({}),
@@ -46,10 +43,9 @@ export const settingsSchema = z.object({
       descriptionOverride: z.string().trim().max(1000).default(""),
       bannerUrl: optionalMediaUrl,
       reasons: z.array(feature).max(8).default([
-        { icon: "gamepad", title: "Early access", body: "Group members are first in line for playtests of new games and updates." },
-        { icon: "gift", title: "Member perks", body: "Exclusive in-game rewards and group-only items across our games." },
-        { icon: "megaphone", title: "Stay in the loop", body: "Group shouts announce releases, events and updates the moment they go live." },
-        { icon: "heart", title: "Support the studio", body: "Joining helps us grow and keep building the games you love." },
+        { title: "Get into playtests early", body: "" },
+        { title: "Group-only rewards in our games", body: "" },
+        { title: "Shouts when new stuff drops", body: "" },
       ]),
     })
     .prefault({}),
@@ -61,12 +57,11 @@ export const settingsSchema = z.object({
         .string()
         .trim()
         .max(600)
-        .default("Hang out with the team and other players, share feedback, get sneak peeks and take part in events."),
+        .default("Talk to the devs, post ideas and bug reports, and see what we're working on before it's out."),
       benefits: z.array(feature).max(8).default([
-        { icon: "flask", title: "Sneak peeks", body: "See work-in-progress builds and features before anyone else." },
-        { icon: "message", title: "Talk to the devs", body: "Share ideas and feedback directly with the people making the games." },
-        { icon: "calendar", title: "Community events", body: "Join game nights, giveaways and update launch events." },
-        { icon: "shield", title: "Friendly & moderated", body: "A welcoming space with clear rules and active moderation." },
+        { title: "Sneak peeks of stuff in progress", body: "" },
+        { title: "Game nights and giveaways", body: "" },
+        { title: "A chill, moderated server", body: "" },
       ]),
     })
     .prefault({}),
