@@ -18,7 +18,7 @@ export function PlatformIcons({ platforms, className }: { platforms: Platform[];
         const Icon = platformIcons[p];
         if (!Icon) return null;
         return (
-          <li key={p} title={PLATFORM_LABELS[p]} className="grid size-7 place-items-center rounded-lg border border-line bg-white/[0.03] text-muted">
+          <li key={p} title={PLATFORM_LABELS[p]} className="grid size-7 place-items-center rounded-lg border border-line bg-tint/[0.03] text-muted">
             <Icon className="size-3.5" aria-hidden="true" />
             <span className="sr-only">{PLATFORM_LABELS[p]}</span>
           </li>

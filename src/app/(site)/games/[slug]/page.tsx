@@ -74,28 +74,25 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
   return (
     <article>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <header className="relative isolate overflow-hidden border-b border-line">
-        {game.thumbnailUrl && (
-          <Image src={game.thumbnailUrl} alt="" fill sizes="100vw" className="-z-20 scale-110 object-cover opacity-30 blur-2xl" preload />
-        )}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/60 via-ink/85 to-ink" aria-hidden="true" />
+      <header className="relative isolate overflow-hidden">
+        <div className="sunburst pointer-events-none absolute left-[12%] top-[60%] -z-10 size-[90rem] -translate-x-1/2 -translate-y-1/2" aria-hidden="true" />
         <div className="container-page pb-12 pt-28 sm:pt-36">
-          <Link href="/games" className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-white">
+          <Link href="/games" className="inline-flex items-center gap-1.5 font-display text-sm font-semibold text-strong/80 transition-colors hover:text-strong">
             <ArrowLeft className="size-4" aria-hidden="true" /> All games
           </Link>
           <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="flex items-end gap-5">
-              <div className="relative size-24 shrink-0 overflow-hidden rounded-3xl border border-white/15 bg-surface-3 shadow-2xl shadow-black/50 sm:size-32">
+              <div className="relative size-24 shrink-0 -rotate-3 overflow-hidden rounded-3xl border-[3px] border-outline bg-surface-3 shadow-[0_5px_0_var(--color-outline)] sm:size-32">
                 {game.iconUrl ? (
                   <Image src={game.iconUrl} alt={`${game.name} icon`} fill sizes="128px" className="object-cover" preload />
                 ) : (
-                  <span className="grid size-full place-items-center font-display text-4xl text-white/40">{game.name[0]}</span>
+                  <span className="grid size-full place-items-center font-display text-4xl text-strong/40">{game.name[0]}</span>
                 )}
               </div>
               <div className="min-w-0">
                 <StatusBadge status={game.status} />
-                <h1 className="mt-3 text-4xl font-semibold text-white sm:text-6xl">{game.name}</h1>
-                {game.tagline && <p className="mt-2 max-w-xl text-lg text-muted">{game.tagline}</p>}
+                <h1 className="text-outline-white mt-3 text-4xl font-bold leading-[1.05] sm:text-6xl">{game.name}</h1>
+                {game.tagline && <p className="mt-3 max-w-xl text-lg font-medium text-strong/80">{game.tagline}</p>}
               </div>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -125,14 +122,14 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
           )}
 
           <section aria-labelledby="about">
-            <h2 id="about" className="mb-5 text-2xl font-semibold text-white">
+            <h2 id="about" className="mb-5 text-2xl font-semibold text-strong">
               About the game
             </h2>
             {game.description ? <Markdown>{game.description}</Markdown> : <p className="text-muted">More details coming soon.</p>}
           </section>
 
           <section aria-labelledby="update-log">
-            <h2 id="update-log" className="mb-6 flex items-center gap-2 text-2xl font-semibold text-white">
+            <h2 id="update-log" className="mb-6 flex items-center gap-2 text-2xl font-semibold text-strong">
               <History className="size-5 text-brand-soft" aria-hidden="true" /> Update log
             </h2>
             {updates.length === 0 ? (
@@ -152,7 +149,7 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
                           {formatDate(update.publishedAt)}
                         </time>
                       </div>
-                      <h3 className="mt-2 text-lg font-semibold text-white">{update.title}</h3>
+                      <h3 className="mt-2 text-lg font-semibold text-strong">{update.title}</h3>
                       {update.body && <Markdown className="mt-3 !text-[0.95rem]">{update.body}</Markdown>}
                     </div>
                   </Reveal>
@@ -165,7 +162,7 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
         <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
           {stats.length > 0 && (
             <div className="panel p-5">
-              <h2 className="mb-4 flex items-center justify-between text-sm font-medium text-white">
+              <h2 className="mb-4 flex items-center justify-between text-sm font-medium text-strong">
                 Live stats <span className="font-mono text-[0.62rem] uppercase tracking-wider text-subtle">via Roblox</span>
               </h2>
               <dl className="grid grid-cols-2 gap-3">
@@ -174,7 +171,7 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
                     <dt className="flex items-center gap-1.5 text-xs text-subtle">
                       <Icon className="size-3.5" aria-hidden="true" /> {label}
                     </dt>
-                    <dd className="mt-1 font-display text-xl font-semibold tabular-nums text-white">
+                    <dd className="mt-1 font-display text-xl font-semibold tabular-nums text-strong">
                       {formatNumber(value as number)}
                       {suffix}
                     </dd>
@@ -195,7 +192,7 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
                   {game.platforms.map((p) => {
                     const Icon = platformIcons[p];
                     return (
-                      <li key={p} className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-3 py-1.5 text-xs text-fg">
+                      <li key={p} className="inline-flex items-center gap-1.5 rounded-full border border-line bg-tint/[0.03] px-3 py-1.5 text-xs text-fg">
                         {Icon && <Icon className="size-3.5 text-muted" aria-hidden="true" />}
                         {PLATFORM_LABELS[p]}
                       </li>
@@ -212,7 +209,7 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
 
       {posts.length > 0 && (
         <section className="container-page mt-20" aria-labelledby="related-news">
-          <h2 id="related-news" className="mb-6 text-2xl font-semibold text-white">
+          <h2 id="related-news" className="mb-6 text-2xl font-semibold text-strong">
             News about {game.name}
           </h2>
           <ul className="grid gap-5 md:grid-cols-3">

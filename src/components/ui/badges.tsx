@@ -11,7 +11,7 @@ export function StatusBadge({ status, className }: { status: GameStatus; classNa
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium backdrop-blur-md",
+        "chip-solid inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium backdrop-blur-md",
         gameStatusStyle[status],
         className,
       )}
@@ -30,7 +30,7 @@ const projectStatusStyle: Record<ProjectStatus, string> = {
 
 export function ProjectStatusBadge({ status, className }: { status: ProjectStatus; className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium backdrop-blur-md", projectStatusStyle[status], className)}>
+    <span className={cn("chip-solid inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium backdrop-blur-md", projectStatusStyle[status], className)}>
       <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />
       {PROJECT_STATUS_LABELS[status]}
     </span>
@@ -39,7 +39,7 @@ export function ProjectStatusBadge({ status, className }: { status: ProjectStatu
 
 export function Chip({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-xs text-muted", className)}>
+    <span className={cn("inline-flex items-center gap-1.5 rounded-full border border-line bg-tint/[0.03] px-2.5 py-1 text-xs text-muted", className)}>
       {children}
     </span>
   );

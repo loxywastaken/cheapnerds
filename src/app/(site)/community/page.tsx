@@ -42,7 +42,7 @@ export default async function CommunityPage() {
           <GroupPromo settings={settings} group={group} />
           {groupGames.length > 0 && (
             <div className="mt-14">
-              <h3 className="mb-6 text-xl font-semibold text-white">Games from the group</h3>
+              <h3 className="mb-6 text-xl font-semibold text-strong">Games from the group</h3>
               <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {groupGames.map((game, i) => (
                   <Reveal as="li" key={game.id} delay={i * 0.06}>

@@ -19,6 +19,9 @@
   --color-ice-soft: #a8cfea;
   --color-ice-deep: #5b93b8;
   --color-dev: #c9a7ff;
+  --color-strong: #ffffff;
+  --color-tint: #ffffff;
+  --color-outline: #0a0705;
   --color-ok: #4ade80;
   --color-warn: #fbbf24;
   --color-danger: #f87171;
@@ -199,7 +202,7 @@
 
   /* Rotating sunburst rays, like the logo's background, faded out at the edges. */
   .sunburst {
-    background: repeating-conic-gradient(from 0deg, rgb(255 190 60 / 0.09) 0deg 5deg, transparent 5deg 15deg);
+    background: repeating-conic-gradient(from 0deg, var(--sunburst-ray, rgb(255 190 60 / 0.09)) 0deg 5deg, transparent 5deg 15deg);
     mask-image: radial-gradient(circle, black 0%, rgb(0 0 0 / 0.5) 30%, transparent 65%);
     -webkit-mask-image: radial-gradient(circle, black 0%, rgb(0 0 0 / 0.5) 30%, transparent 65%);
   }
@@ -229,6 +232,156 @@
   .prose-cn table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
   .prose-cn th, .prose-cn td { border-bottom: 1px solid var(--color-line); padding: 0.5em 0.6em; text-align: left; }
   .prose-cn th { color: white; font-weight: 600; }
+}
+
+/* ------------------------------------------------------------------------------------------
+ * Cartoon theme (public site): sunny low-poly yellow, cream "sticker" cards with thick ink
+ * outlines and hard offset shadows. Implemented by re-pointing the colour tokens inside
+ * .theme-cartoon, so every component that uses tokens flips automatically.
+ * ---------------------------------------------------------------------------------------- */
+@layer base {
+  .theme-cartoon {
+    --color-ink: #2a1b0b;
+    --color-outline: #2a1b0b;
+    --color-surface: #fffbea;
+    --color-surface-2: #fff2c2;
+    --color-surface-3: #ffe58a;
+    --color-line: rgb(42 27 11 / 0.14);
+    --color-line-strong: rgb(42 27 11 / 0.32);
+    --color-fg: #2a1b0b;
+    --color-strong: #1f1306;
+    --color-tint: #2a1b0b;
+    --color-muted: #5e4520;
+    --color-subtle: #866532;
+    --color-brand: #c2410c;
+    --color-brand-soft: #ea580c;
+    --color-brand-deep: #9a3412;
+    --color-ice-soft: #2563a8;
+    --color-ice-deep: #1d4e89;
+    --color-dev: #7c3aed;
+    --color-ok: #15803d;
+    --color-warn: #b45309;
+    --color-danger: #b91c1c;
+    --sunburst-ray: rgb(255 255 255 / 0.22);
+    color: var(--color-fg);
+    background: #ffd43b url("/patterns/lowpoly.svg") repeat;
+    background-size: 1200px 880px;
+  }
+  /* Dark islands inside the cartoon site (footer, Discord card). */
+  .theme-night {
+    --color-ink: #120c06;
+    --color-surface: #2a1b0b;
+    --color-surface-2: #362412;
+    --color-surface-3: #45301a;
+    --color-line: rgb(255 240 210 / 0.12);
+    --color-line-strong: rgb(255 240 210 / 0.24);
+    --color-fg: #fff7e6;
+    --color-strong: #ffffff;
+    --color-tint: #ffffff;
+    --color-muted: #e3d2b4;
+    --color-subtle: #b9a27f;
+    --color-brand: #ffc21f;
+    --color-brand-soft: #ffe34d;
+    --color-ice-soft: #a8cfea;
+    --color-ok: #4ade80;
+    color: var(--color-fg);
+  }
+  html:has(.theme-cartoon) {
+    background: #ffd43b;
+  }
+  .theme-cartoon ::selection {
+    background: var(--color-outline);
+    color: #ffd43b;
+  }
+  .theme-cartoon :focus-visible {
+    outline: 3px solid var(--color-outline);
+  }
+}
+
+@layer components {
+  .theme-cartoon .panel {
+    background: var(--color-surface);
+    border: 3px solid var(--color-outline);
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 0 var(--color-outline);
+  }
+  .theme-cartoon .theme-night.panel,
+  .theme-cartoon .theme-night .panel {
+    border-color: var(--color-outline);
+  }
+  /* Cards bounce up on hover instead of the dark theme's cursor glow. */
+  .theme-cartoon .spotlight::before,
+  .theme-cartoon .spotlight::after {
+    display: none;
+  }
+  .theme-cartoon .spotlight {
+    transition: transform 250ms var(--ease-out-soft), box-shadow 250ms var(--ease-out-soft);
+  }
+  .theme-cartoon .spotlight:hover {
+    transform: translateY(-4px) rotate(-0.4deg);
+    box-shadow: 0 10px 0 var(--color-outline);
+  }
+  /* Sticker-style label used for section eyebrows. */
+  .theme-cartoon .sticker {
+    display: inline-block;
+    padding: 0.35rem 0.8rem;
+    border: 2.5px solid var(--color-outline);
+    border-radius: 999px;
+    background: #ffffff;
+    color: var(--color-outline);
+    font-weight: 600;
+    box-shadow: 0 3px 0 var(--color-outline);
+    transform: rotate(-2deg);
+  }
+  /* Status chips become solid stickers so they read on photos and on yellow. */
+  .theme-cartoon .chip-solid {
+    background-color: #ffffff !important;
+    border: 2px solid var(--color-outline) !important;
+    box-shadow: 0 2px 0 var(--color-outline);
+    font-weight: 600;
+  }
+  .theme-cartoon h1,
+  .theme-cartoon h2 {
+    font-weight: 700;
+  }
+  .theme-cartoon .prose-cn {
+    color: var(--color-fg);
+  }
+  .theme-cartoon .prose-cn a {
+    color: var(--color-ice-deep);
+    text-decoration-color: currentColor;
+    font-weight: 600;
+  }
+  .theme-cartoon .prose-cn pre,
+  .theme-cartoon .prose-cn img {
+    border: 3px solid var(--color-outline);
+  }
+  .theme-cartoon .dot-grid {
+    background-image: none;
+  }
+
+  /* Big outlined cartoon lettering (hero, 404). */
+  .text-outline-white,
+  .text-outline-gold,
+  .text-outline-ice {
+    -webkit-text-stroke: 0.12em var(--color-outline);
+    paint-order: stroke fill;
+    text-shadow: 0 0.09em 0 var(--color-outline);
+    letter-spacing: 0.01em;
+  }
+  .text-outline-white {
+    color: #ffffff;
+  }
+  .text-outline-gold {
+    color: #ff9a0a;
+    -webkit-text-stroke-color: #5a1e00;
+    text-shadow: 0 0.09em 0 #5a1e00;
+  }
+  .text-outline-ice {
+    color: #f2f8fd;
+    -webkit-text-stroke-color: #1d3f5c;
+    text-shadow: 0 0.09em 0 #1d3f5c;
+  }
 }
 
 @utility scrollbar-none {

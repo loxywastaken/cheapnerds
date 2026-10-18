@@ -8,7 +8,7 @@ export function LogoMark({ className, src = DEFAULT_LOGO }: { className?: string
   return (
     <span
       className={cn(
-        "relative block size-10 shrink-0 overflow-hidden rounded-xl shadow-[0_0_0_1px_rgb(255_200_80/0.35),0_6px_18px_-6px_rgb(255_160_20/0.6)]",
+        "relative block size-10 shrink-0 overflow-hidden rounded-xl border-[2.5px] border-outline shadow-[0_3px_0_var(--color-outline)]",
         className,
       )}
     >
@@ -24,8 +24,8 @@ export function Logo({ logoUrl, siteName, className }: { logoUrl?: string; siteN
     <span className={cn("flex items-center gap-2.5", className)}>
       <LogoMark src={logoUrl || DEFAULT_LOGO} />
       <span className="font-logo text-[1.3rem] font-bold uppercase leading-none tracking-wide">
-        <span className="text-bubbly-gold">{first}</span>
-        {rest.length > 0 && <span className="text-bubbly-ice"> {rest.join(" ")}</span>}
+        <span className="text-outline-gold">{first}</span>
+        {rest.length > 0 && <span className="text-outline-ice"> {rest.join(" ")}</span>}
       </span>
     </span>
   );

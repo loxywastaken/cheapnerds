@@ -85,6 +85,7 @@ Changes show up on the public site immediately, because each save invalidates th
 | `npm run db:seed` | Seed empty tables with starter content |
 | `npm run db:studio` | Browse the database with Drizzle Studio |
 | `npm run admin:create` | Create an admin, or reset an existing admin's password |
+| `npm run brand:pattern` | Regenerate the seamless low-poly yellow background (`public/patterns/lowpoly.svg`) |
 
 ## Project structure
 
@@ -101,5 +102,7 @@ src/
 scripts/             migrate, seed, create-admin
 drizzle/             SQL migrations
 ```
+
+The public site uses a cartoon, low-poly yellow theme (`.theme-cartoon` in `src/app/globals.css`), which re-points the colour tokens so components restyle automatically. The admin dashboard keeps the dark theme.
 
 Fonts in `src/assets/fonts` (Geist and Fredoka) are used for Open Graph images and are licensed under the SIL Open Font License. The logo lives in `public/brand/logo.png` and also generates the favicon (`src/app/icon.png`, `src/app/apple-icon.png`).

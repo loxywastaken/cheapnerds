@@ -6,21 +6,20 @@ type Variant = "primary" | "accent" | "secondary" | "ghost" | "discord" | "dange
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-[transform,background-color,border-color,color,box-shadow] duration-200 ease-out disabled:pointer-events-none disabled:opacity-50";
+  "group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-2xl font-display font-semibold tracking-wide transition-[transform,background-color,border-color,color,box-shadow,filter] duration-150 ease-out disabled:pointer-events-none disabled:opacity-50";
 
-// "Bubbly" buttons echo the chunky, outlined lettering of the logo: a glossy top
-// highlight and a solid darker base that presses down on click.
-const gold =
-  "bg-[linear-gradient(180deg,#ffe656_0%,#ffc21f_45%,#ff9f0f_100%)] font-semibold text-brand-ink shadow-[inset_0_1px_0_rgb(255_255_255/0.65),inset_0_-2px_0_rgb(160_60_0/0.25),0_3px_0_#b45200,0_10px_28px_-8px_rgb(255_170_20/0.55)] hover:-translate-y-px hover:brightness-105 active:translate-y-[2px] active:shadow-[inset_0_1px_0_rgb(255_255_255/0.5),0_1px_0_#b45200,0_6px_18px_-8px_rgb(255_170_20/0.5)]";
+// Cartoon "game UI" buttons: thick ink outline, glossy top highlight and a solid
+// offset shadow that squishes down when pressed.
+const chunky =
+  "border-[3px] border-outline shadow-[inset_0_-4px_0_rgb(0_0_0/0.14),inset_0_2px_0_rgb(255_255_255/0.55),0_4px_0_var(--color-outline)] hover:-translate-y-0.5 hover:shadow-[inset_0_-4px_0_rgb(0_0_0/0.14),inset_0_2px_0_rgb(255_255_255/0.55),0_6px_0_var(--color-outline)] active:translate-y-[3px] active:shadow-[inset_0_-2px_0_rgb(0_0_0/0.14),inset_0_2px_0_rgb(255_255_255/0.4),0_1px_0_var(--color-outline)]";
 
 const variants: Record<Variant, string> = {
-  primary: gold,
-  accent: gold,
-  secondary:
-    "border border-ice-soft/20 bg-ice/[0.04] text-fg backdrop-blur hover:border-ice-soft/40 hover:bg-ice/[0.08] shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]",
-  ghost: "text-muted hover:bg-white/[0.06] hover:text-fg",
-  discord:
-    "bg-[#5865F2] font-semibold text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_3px_0_#3a43b8,0_10px_28px_-10px_rgb(88_101_242/0.9)] hover:-translate-y-px hover:bg-[#6873f5] active:translate-y-[2px] active:shadow-[inset_0_1px_0_rgb(255_255_255/0.2),0_1px_0_#3a43b8]",
+  // Green "PLAY" button, straight out of a Roblox simulator.
+  primary: `${chunky} bg-[linear-gradient(180deg,#7cf06a_0%,#3fd43a_55%,#24b02a_100%)] text-[#0f2a0c]`,
+  accent: `${chunky} bg-[linear-gradient(180deg,#ffe656_0%,#ffc21f_50%,#ff9f0f_100%)] text-brand-ink`,
+  secondary: `${chunky} bg-white text-[#2a1b0b] hover:bg-[#fffbea]`,
+  ghost: "text-muted hover:bg-tint/[0.08] hover:text-strong",
+  discord: `${chunky} bg-[linear-gradient(180deg,#7c86ff_0%,#5865f2_60%,#4752d6_100%)] text-white [text-shadow:0_2px_0_rgb(20_20_80/0.45)]`,
   danger: "border border-danger/30 bg-danger/10 text-danger hover:bg-danger/20",
 };
 

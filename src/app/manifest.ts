@@ -9,7 +9,7 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     description: settings.siteDescription,
     start_url: "/",
     display: "standalone",
-    background_color: "#0d0b0a",
+    background_color: "#ffd43b",
     theme_color: "#ffb21a",
     icons: [
       { src: "/icon.png", sizes: "192x192", type: "image/png" },

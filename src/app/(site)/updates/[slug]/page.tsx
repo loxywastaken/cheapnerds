@@ -58,7 +58,7 @@ async function PostDetail({ params }: Pick<PageProps<"/updates/[slug]">, "params
     <>
       <article className="container-page max-w-4xl pt-28 sm:pt-36">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-        <Link href="/updates" className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-white">
+        <Link href="/updates" className="inline-flex items-center gap-1.5 font-display text-sm font-semibold text-strong/80 transition-colors hover:text-strong">
           <ArrowLeft className="size-4" aria-hidden="true" /> All updates
         </Link>
         <header className="mt-8">
@@ -68,19 +68,19 @@ async function PostDetail({ params }: Pick<PageProps<"/updates/[slug]">, "params
               {formatDate(post.publishedAt)}
             </time>
           </div>
-          <h1 className="mt-5 text-4xl font-semibold leading-tight text-white sm:text-5xl">{post.title}</h1>
+          <h1 className="text-outline-white mt-5 text-4xl font-bold leading-tight sm:text-5xl">{post.title}</h1>
           {post.excerpt && <p className="mt-4 text-lg text-muted sm:text-xl">{post.excerpt}</p>}
           {game && (
             <Link
               href={`/games/${game.slug}`}
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3.5 py-1.5 text-sm text-fg transition-colors hover:border-line-strong"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-tint/[0.03] px-3.5 py-1.5 text-sm text-fg transition-colors hover:border-line-strong"
             >
               <Gamepad2 className="size-4 text-brand-soft" aria-hidden="true" /> {game.name}
             </Link>
           )}
         </header>
         {post.coverUrl && (
-          <div className="relative mt-10 aspect-video overflow-hidden rounded-3xl border border-line bg-surface-2">
+          <div className="relative mt-10 aspect-video overflow-hidden rounded-3xl border-[3px] border-outline bg-surface-2 shadow-[0_6px_0_var(--color-outline)]">
             <CoverImage src={post.coverUrl} alt="" sizes="(min-width: 1024px) 896px, 100vw" preload zoom={false} />
           </div>
         )}
@@ -89,7 +89,7 @@ async function PostDetail({ params }: Pick<PageProps<"/updates/[slug]">, "params
 
       {related.length > 0 && (
         <section className="container-page mt-24" aria-labelledby="more-posts">
-          <h2 id="more-posts" className="mb-6 text-2xl font-semibold text-white">
+          <h2 id="more-posts" className="mb-6 text-2xl font-semibold text-strong">
             More updates
           </h2>
           <ul className="grid gap-5 md:grid-cols-3">

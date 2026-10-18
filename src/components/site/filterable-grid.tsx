@@ -75,15 +75,15 @@ export function FilterableGrid({
                 aria-pressed={active}
                 disabled={f.value !== "all" && count === 0}
                 className={cn(
-                  "relative inline-flex h-10 shrink-0 items-center gap-2 rounded-full border px-4 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-40",
-                  active ? "border-transparent font-medium text-brand-ink" : "border-line text-muted hover:border-line-strong hover:text-white",
+                  "relative inline-flex h-10 shrink-0 items-center gap-2 rounded-full border-[2.5px] border-outline bg-white px-4 font-display text-sm font-semibold shadow-[0_3px_0_var(--color-outline)] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40",
+                  active ? "text-[#ffd43b]" : "text-strong",
                 )}
               >
                 {active && (
-                  <motion.span layoutId="filter-pill" className="absolute inset-0 rounded-full bg-[linear-gradient(180deg,#ffe656,#ffb21a)] shadow-[inset_0_1px_0_rgb(255_255_255/0.6),0_2px_0_#b45200]" transition={{ type: "spring", stiffness: 420, damping: 34 }} />
+                  <motion.span layoutId="filter-pill" className="absolute -inset-[2.5px] rounded-full bg-outline" transition={{ type: "spring", stiffness: 420, damping: 34 }} />
                 )}
                 <span className="relative">{f.label}</span>
-                <span className={cn("relative font-mono text-[0.7rem]", active ? "text-brand-ink/60" : "text-subtle")}>{count}</span>
+                <span className={cn("relative font-mono text-[0.7rem]", active ? "text-[#ffd43b]/70" : "text-subtle")}>{count}</span>
               </button>
             );
           })}
@@ -102,13 +102,13 @@ export function FilterableGrid({
               onChange={(e) => setQuery(e.target.value)}
               placeholder={searchPlaceholder ?? "Search…"}
               maxLength={100}
-              className="h-11 w-full rounded-full border border-line bg-surface pl-11 pr-10 text-sm text-white placeholder:text-subtle focus:border-brand/60 focus:outline-none focus:ring-4 focus:ring-brand/15 [&::-webkit-search-cancel-button]:hidden"
+              className="h-11 w-full rounded-full border-[2.5px] border-outline bg-white pl-11 pr-10 text-sm font-medium text-strong shadow-[0_3px_0_var(--color-outline)] placeholder:text-subtle focus:outline-none focus:ring-4 focus:ring-white/70 [&::-webkit-search-cancel-button]:hidden"
             />
             {query && (
               <button
                 type="button"
                 onClick={() => setQuery("")}
-                className="absolute right-2 top-1/2 grid size-7 -translate-y-1/2 place-items-center rounded-full text-subtle hover:bg-white/10 hover:text-white"
+                className="absolute right-2 top-1/2 grid size-7 -translate-y-1/2 place-items-center rounded-full text-subtle hover:bg-tint/10 hover:text-strong"
                 aria-label="Clear search"
               >
                 <X className="size-4" />
@@ -141,14 +141,14 @@ export function FilterableGrid({
 
       {visible.length === 0 && (
         <div className="panel mt-8 flex flex-col items-center px-6 py-14 text-center">
-          <p className="text-white">{emptyLabel}</p>
+          <p className="text-strong">{emptyLabel}</p>
           <button
             type="button"
             onClick={() => {
               setQuery("");
               setFilter("all");
             }}
-            className="mt-3 text-sm text-brand-soft hover:text-white"
+            className="mt-3 text-sm text-brand-soft hover:text-strong"
           >
             Clear filters
           </button>

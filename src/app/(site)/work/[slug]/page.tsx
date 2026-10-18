@@ -48,7 +48,7 @@ async function ProjectDetail({ params }: Pick<PageProps<"/work/[slug]">, "params
 
   return (
     <article className="container-page max-w-5xl pt-28 sm:pt-36">
-      <Link href="/work" className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-white">
+      <Link href="/work" className="inline-flex items-center gap-1.5 font-display text-sm font-semibold text-strong/80 transition-colors hover:text-strong">
         <ArrowLeft className="size-4" aria-hidden="true" /> All work
       </Link>
       <header className="mt-8">
@@ -56,7 +56,7 @@ async function ProjectDetail({ params }: Pick<PageProps<"/work/[slug]">, "params
           <span className="eyebrow">{PROJECT_CATEGORY_LABELS[project.category]}</span>
           <ProjectStatusBadge status={project.status} />
         </div>
-        <h1 className="mt-4 text-4xl font-semibold text-white sm:text-6xl">{project.title}</h1>
+        <h1 className="text-outline-white mt-4 text-4xl font-bold leading-[1.05] sm:text-6xl">{project.title}</h1>
         {project.summary && <p className="mt-4 max-w-3xl text-lg text-muted sm:text-xl">{project.summary}</p>}
       </header>
 
@@ -64,7 +64,7 @@ async function ProjectDetail({ params }: Pick<PageProps<"/work/[slug]">, "params
         {images.length > 1 ? (
           <Gallery images={images} title={project.title} />
         ) : (
-          <div className="relative aspect-video overflow-hidden rounded-3xl border border-line bg-surface-2">
+          <div className="relative aspect-video overflow-hidden rounded-3xl border-[3px] border-outline bg-surface-2 shadow-[0_6px_0_var(--color-outline)]">
             <CoverImage src={images[0]} alt={project.title} sizes="(min-width: 1024px) 1024px, 100vw" preload zoom={false} fallbackIcon={Boxes} />
           </div>
         )}
@@ -78,7 +78,7 @@ async function ProjectDetail({ params }: Pick<PageProps<"/work/[slug]">, "params
               <h2 className="text-xs text-subtle">Built with</h2>
               <ul className="mt-3 flex flex-wrap gap-1.5">
                 {project.technologies.map((tech) => (
-                  <li key={tech} className="rounded-lg border border-line bg-white/[0.03] px-2.5 py-1 font-mono text-xs text-fg">
+                  <li key={tech} className="rounded-lg border border-line bg-tint/[0.03] px-2.5 py-1 font-mono text-xs text-fg">
                     {tech}
                   </li>
                 ))}

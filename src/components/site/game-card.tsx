@@ -18,15 +18,14 @@ export function GameCard({ game, preload, layout = "card" }: { game: GameView; p
         wide && "lg:flex-row",
       )}
     >
-      <div className={cn("relative aspect-video overflow-hidden bg-surface-2", wide ? "lg:w-[58%] lg:shrink-0" : "rounded-t-[inherit]")}>
+      <div className={cn("relative aspect-video overflow-hidden border-outline bg-surface-2", wide ? "border-b-[3px] lg:w-[58%] lg:shrink-0 lg:border-b-0 lg:border-r-[3px]" : "rounded-t-[inherit] border-b-[3px]")}>
         <CoverImage
           src={game.thumbnailUrl}
           alt={`${game.name} thumbnail`}
           sizes={wide ? "(min-width: 1024px) 720px, 100vw" : "(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"}
           preload={preload}
         />
-        <div className={cn("absolute inset-0 bg-gradient-to-t from-surface via-surface/10 to-transparent", wide && "lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-surface/70")} aria-hidden="true" />
-        <StatusBadge status={game.status} className="absolute left-3 top-3 bg-ink/60" />
+                <StatusBadge status={game.status} className="absolute left-3 top-3 bg-ink/60" />
         {game.stats?.playing != null && game.stats.playing > 0 && (
           <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-ink/60 px-2.5 py-1 text-xs text-white backdrop-blur-md">
             <span className="size-1.5 animate-pulse-dot rounded-full bg-ok" aria-hidden="true" />
@@ -37,17 +36,17 @@ export function GameCard({ game, preload, layout = "card" }: { game: GameView; p
 
       <div className={cn("flex flex-1 flex-col px-5 pb-5", wide && "lg:justify-center lg:p-10")}>
         <div className={cn("-mt-8 mb-3 flex items-end justify-between gap-3", wide && "lg:mt-0 lg:mb-6")}>
-          <div className="relative size-16 shrink-0 overflow-hidden rounded-2xl border-2 border-surface bg-surface-3 shadow-xl shadow-black/40">
+          <div className="relative size-16 shrink-0 overflow-hidden rounded-2xl border-[3px] border-outline bg-surface-3 shadow-[0_3px_0_var(--color-outline)]">
             {game.iconUrl ? (
               <Image src={game.iconUrl} alt="" fill sizes="64px" className="object-cover" />
             ) : (
-              <span className="grid size-full place-items-center font-display text-xl font-semibold text-white/50">{game.name.slice(0, 1)}</span>
+              <span className="grid size-full place-items-center font-display text-xl font-semibold text-strong/50">{game.name.slice(0, 1)}</span>
             )}
           </div>
           <PlatformIcons platforms={game.platforms} />
         </div>
 
-        <h3 className={cn("text-xl font-semibold text-white", wide && "lg:text-3xl")}>
+        <h3 className={cn("text-xl font-bold text-strong", wide && "lg:text-3xl")}>
           <Link href={`/games/${game.slug}`} className="after:absolute after:inset-0 after:z-[1] focus-visible:outline-none">
             {game.name}
           </Link>
@@ -82,7 +81,7 @@ export function GameCard({ game, preload, layout = "card" }: { game: GameView; p
               <ArrowUpRight className="size-3.5" aria-hidden="true" />
             </a>
           ) : (
-            <span className="text-xs font-medium text-brand">View details →</span>
+            <span className="font-display text-sm font-semibold text-brand">View details →</span>
           )}
         </div>
       </div>

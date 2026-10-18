@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 type Sparkle = { x: number; y: number; vy: number; size: number; color: string; phase: number; speed: number; star: boolean };
 
-const COLORS = ["255, 226, 110", "255, 190, 60", "255, 255, 255", "190, 222, 245"];
+const COLORS = ["255, 255, 255", "255, 255, 255", "255, 248, 220", "255, 160, 40"];
 
 /**
  * Twinkling sparkle field inspired by the logo's starburst: tiny glints and a few

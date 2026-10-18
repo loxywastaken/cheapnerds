@@ -22,7 +22,7 @@ function FeatureGrid({ items, columns = 2 }: { items: FeatureItem[]; columns?: 2
               <div className="mb-4 grid size-10 place-items-center rounded-xl border border-line bg-surface-2 text-brand-soft">
                 <Icon className="size-[1.1rem]" aria-hidden="true" />
               </div>
-              <h3 className="font-semibold text-white">{item.title}</h3>
+              <h3 className="font-semibold text-strong">{item.title}</h3>
               {item.body && <p className="mt-1.5 text-sm leading-relaxed text-muted">{item.body}</p>}
             </SpotlightCard>
           </Reveal>
@@ -36,7 +36,7 @@ function FeatureGrid({ items, columns = 2 }: { items: FeatureItem[]; columns?: 2
 function LiveCount({ value, label, pulse }: { value: number | null | undefined; label: string; pulse?: boolean }) {
   if (value == null) return null;
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-line bg-ink/50 px-3 py-1.5 text-sm text-fg backdrop-blur-md">
+    <span className="inline-flex items-center gap-2 rounded-full border-2 border-outline bg-surface px-3 py-1.5 text-sm text-fg shadow-[0_2px_0_var(--color-outline)]">
       <span className={cn("size-2 rounded-full", pulse ? "animate-pulse-dot bg-ok" : "bg-brand-soft")} aria-hidden="true" />
       <span className="font-semibold tabular-nums">{formatNumber(value)}</span>
       <span className="text-muted">{label}</span>
@@ -75,12 +75,12 @@ export function GroupPromo({
           <div className="relative px-5 pb-6 sm:px-8 sm:pb-8">
             <div className="-mt-14 flex flex-col gap-5 sm:-mt-16 sm:flex-row sm:items-end sm:justify-between">
               <div className="flex items-end gap-4">
-                <div className="relative size-24 shrink-0 overflow-hidden rounded-3xl border-4 border-surface bg-surface-3 shadow-2xl shadow-black/50 sm:size-28">
+                <div className="relative size-24 shrink-0 -rotate-3 overflow-hidden rounded-3xl border-[3px] border-outline bg-surface-3 shadow-[0_5px_0_var(--color-outline)] sm:size-28">
                   <Image src={group?.iconUrl || settings.branding.logoUrl || DEFAULT_LOGO} alt={`${name} icon`} fill sizes="112px" className="object-cover" />
                 </div>
                 <div className="pb-1">
                   <p className="eyebrow !text-[0.66rem]">Official Roblox group</p>
-                  <h3 className="mt-1 flex items-center gap-2 text-2xl font-semibold text-white sm:text-3xl">
+                  <h3 className="mt-1 flex items-center gap-2 text-2xl font-semibold text-strong sm:text-3xl">
                     {name}
                     {group?.verified && <BadgeCheck className="size-5 text-ice-soft" aria-label="Verified" />}
                   </h3>
@@ -97,7 +97,7 @@ export function GroupPromo({
             <div className="mt-5 flex flex-wrap gap-2">
               <LiveCount value={group?.memberCount} label="members" />
               {group?.ownerName && (
-                <span className="inline-flex items-center gap-2 rounded-full border border-line bg-ink/50 px-3 py-1.5 text-sm text-muted">
+                <span className="inline-flex items-center gap-2 rounded-full border-2 border-outline bg-surface px-3 py-1.5 text-sm text-muted shadow-[0_2px_0_var(--color-outline)]">
                   <Users className="size-3.5" aria-hidden="true" /> Owned by {group.ownerName}
                 </span>
               )}
@@ -124,12 +124,11 @@ export function DiscordPromo({
   return (
     <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr]">
       <Reveal className="h-full">
-        <div className="relative h-full overflow-hidden rounded-3xl border border-[#5865F2]/30 bg-[#5865F2]/[0.08] p-6 sm:p-8">
-          <div className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-[#5865F2]/25 blur-[90px]" aria-hidden="true" />
-          <DiscordIcon size={220} className="pointer-events-none absolute -bottom-10 -right-8 text-[#5865F2]/10" />
+        <div className="theme-night relative h-full overflow-hidden rounded-3xl border-[3px] border-outline bg-[linear-gradient(160deg,#6f7bff,#5865f2_45%,#4450d4)] p-6 shadow-[0_6px_0_var(--color-outline)] sm:p-8">
+          <DiscordIcon size={220} className="pointer-events-none absolute -bottom-10 -right-8 text-white/10" />
           <div className="relative">
             <div className="flex items-center gap-4">
-              <div className="relative size-16 shrink-0 overflow-hidden rounded-2xl bg-[#5865F2] text-white shadow-lg shadow-[#5865F2]/30">
+              <div className="relative size-16 shrink-0 overflow-hidden rounded-2xl border-[3px] border-outline bg-[#5865F2] text-white shadow-[0_3px_0_var(--color-outline)]">
                 {server?.iconUrl ? (
                   <Image src={server.iconUrl} alt={`${server.name} server icon`} fill sizes="64px" className="object-cover" unoptimized={server.iconUrl.includes(".gif")} />
                 ) : (
@@ -139,8 +138,8 @@ export function DiscordPromo({
                 )}
               </div>
               <div>
-                <p className="eyebrow !text-[#aab1ff]">Discord community</p>
-                <h3 className="mt-1 text-2xl font-semibold text-white sm:text-3xl">{server?.name || settings.siteName}</h3>
+                <p className="eyebrow !text-white/85">Discord community</p>
+                <h3 className="mt-1 text-2xl font-semibold text-strong sm:text-3xl">{server?.name || settings.siteName}</h3>
               </div>
             </div>
             <div className="mt-5 flex flex-wrap gap-2">

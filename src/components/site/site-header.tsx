@@ -73,9 +73,9 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       {announcement && !open && (
-        <div className="border-b border-line bg-[linear-gradient(90deg,rgb(255_178_26/0.22),rgb(91_147_184/0.16),rgb(255_178_26/0.22))] backdrop-blur-xl">
-          <div className="container-page flex h-9 items-center justify-center gap-2 text-center text-[0.8rem] text-fg">
-            <span className="size-1.5 shrink-0 animate-pulse-dot rounded-full bg-brand-soft" aria-hidden="true" />
+        <div className="border-b-[3px] border-outline bg-outline">
+          <div className="container-page flex h-9 items-center justify-center gap-2 text-center font-display text-[0.85rem] font-semibold tracking-wide text-[#ffd43b]">
+            <span className="size-1.5 shrink-0 animate-pulse-dot rounded-full bg-[#ffd43b]" aria-hidden="true" />
             {announcement.href ? (
               <Link href={announcement.href} className="group inline-flex items-center gap-1.5 truncate hover:text-white">
                 <span className="truncate">{announcement.text}</span>
@@ -89,8 +89,8 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
       )}
       <div
         className={cn(
-          "border-b transition-[background-color,border-color,backdrop-filter] duration-300",
-          scrolled || open ? "border-line bg-ink/75 backdrop-blur-xl" : "border-transparent bg-transparent",
+          "border-b-[3px] transition-[background-color,border-color,box-shadow] duration-300",
+          scrolled || open ? "border-outline bg-surface/95 backdrop-blur-xl" : "border-transparent bg-transparent",
         )}
       >
         <nav className="container-page flex h-16 items-center justify-between gap-6 sm:h-[4.5rem]" aria-label="Main">
@@ -98,7 +98,7 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
             <Logo siteName={siteName} logoUrl={logoUrl} />
           </Link>
 
-          <ul className="hidden items-center gap-1 rounded-full border border-line bg-white/[0.025] p-1 backdrop-blur md:flex">
+          <ul className="hidden items-center gap-1 rounded-full border-[3px] border-outline bg-white p-1 shadow-[0_4px_0_var(--color-outline)] md:flex">
             {NAV_LINKS.map((link) => {
               const active = isActive(pathname, link.href);
               return (
@@ -106,7 +106,7 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
                   {active && (
                     <motion.span
                       layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full bg-white/[0.08] shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]"
+                      className="absolute inset-0 rounded-full border-2 border-outline bg-[#ffd43b] shadow-[inset_0_-3px_0_rgb(0_0_0/0.12)]"
                       transition={{ type: "spring", stiffness: 420, damping: 34 }}
                     />
                   )}
@@ -114,8 +114,8 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
                     href={link.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "relative block rounded-full px-4 py-1.5 text-sm transition-colors",
-                      active ? "text-white" : "text-muted hover:text-white",
+                      "relative block rounded-full px-4 py-1.5 font-display text-[0.95rem] font-semibold tracking-wide transition-colors",
+                      active ? "text-strong" : "text-muted hover:text-strong",
                     )}
                   >
                     {link.label}
@@ -138,7 +138,7 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
               ref={menuButton}
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="relative z-10 grid size-10 place-items-center rounded-full border border-line bg-white/[0.04] text-fg md:hidden"
+              className="relative z-10 grid size-11 place-items-center rounded-2xl border-[3px] border-outline bg-white text-outline shadow-[0_3px_0_var(--color-outline)] md:hidden"
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
@@ -163,7 +163,7 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
         {open && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-x-0 bottom-0 top-16 overflow-y-auto border-t border-line bg-ink/95 backdrop-blur-2xl md:hidden"
+            className="fixed inset-x-0 bottom-0 top-16 overflow-y-auto bg-surface md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -187,12 +187,12 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
                       href={link.href}
                       aria-current={active ? "page" : undefined}
                       className={cn(
-                        "flex items-center justify-between rounded-2xl px-4 py-4 font-display text-2xl font-medium transition-colors",
-                        active ? "bg-white/[0.06] text-white" : "text-muted active:bg-white/[0.04]",
+                        "flex items-center justify-between rounded-2xl border-[3px] px-4 py-3.5 font-display text-2xl font-semibold transition-colors",
+                        active ? "border-outline bg-[#ffd43b] text-strong shadow-[0_4px_0_var(--color-outline)]" : "border-transparent text-muted active:bg-surface-2",
                       )}
                     >
                       {link.label}
-                      {active && <span className="size-2 rounded-full bg-brand-soft" aria-hidden="true" />}
+                      {active && <span className="size-2.5 rounded-full bg-outline" aria-hidden="true" />}
                     </Link>
                   </motion.li>
                 );

@@ -88,7 +88,7 @@ export default async function HomePage() {
         <section aria-labelledby="studio" className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <Reveal>
             <p className="eyebrow mb-3">02 — The studio</p>
-            <h2 id="studio" className="text-3xl font-semibold text-white sm:text-4xl">
+            <h2 id="studio" className="text-3xl font-semibold text-strong sm:text-4xl">
               {settings.about.title}
             </h2>
             <p className="mt-5 whitespace-pre-line text-lg leading-relaxed text-muted">{settings.about.body}</p>
@@ -102,7 +102,7 @@ export default async function HomePage() {
           <Reveal delay={0.1}>
             <div className="panel p-2">
               <div className="flex items-center justify-between px-4 pb-2 pt-3">
-                <h3 className="flex items-center gap-2 text-sm font-medium text-white">
+                <h3 className="flex items-center gap-2 text-sm font-medium text-strong">
                   <Clock className="size-4 text-brand-soft" aria-hidden="true" /> Recently updated
                 </h3>
                 <span className="font-mono text-[0.65rem] uppercase tracking-wider text-subtle">Live from Roblox</span>
@@ -111,12 +111,12 @@ export default async function HomePage() {
                 <ul>
                   {recentlyUpdated.map((game) => (
                     <li key={game.id}>
-                      <Link href={`/games/${game.slug}`} className="group flex items-center gap-4 rounded-2xl p-3 transition-colors hover:bg-white/[0.04]">
+                      <Link href={`/games/${game.slug}`} className="group flex items-center gap-4 rounded-2xl p-3 transition-colors hover:bg-tint/[0.04]">
                         <div className="relative aspect-video w-24 shrink-0 overflow-hidden rounded-xl bg-surface-2 sm:w-32">
                           <CoverImage src={game.thumbnailUrl} alt="" sizes="128px" />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="truncate font-medium text-white">{game.name}</p>
+                          <p className="truncate font-medium text-strong">{game.name}</p>
                           <p className="mt-0.5 truncate text-sm text-muted">{game.tagline || game.genre}</p>
                         </div>
                         {game.lastUpdated && (
@@ -124,7 +124,7 @@ export default async function HomePage() {
                             {formatDate(game.lastUpdated)}
                           </time>
                         )}
-                        <ArrowRight className="size-4 shrink-0 text-subtle transition-transform group-hover:translate-x-0.5 group-hover:text-white" aria-hidden="true" />
+                        <ArrowRight className="size-4 shrink-0 text-subtle transition-transform group-hover:translate-x-0.5 group-hover:text-strong" aria-hidden="true" />
                       </Link>
                     </li>
                   ))}

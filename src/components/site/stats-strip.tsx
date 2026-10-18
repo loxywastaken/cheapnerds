@@ -13,7 +13,7 @@ export function StatsStrip({ stats }: { stats: Stat[] }) {
         {shown.map((stat, i) => (
           <div key={stat.label} className={`flex-1 px-5 py-6 sm:px-7 ${i % 2 === 1 ? "border-l border-line sm:border-l-0" : ""} ${i >= 2 ? "border-t border-line sm:border-t-0" : ""}`}>
             <dt className="text-xs text-subtle">{stat.label}</dt>
-            <dd className="mt-1.5 font-display text-3xl font-semibold tabular-nums text-white" title={formatNumber(stat.value)}>
+            <dd className="mt-1.5 font-display text-3xl font-semibold tabular-nums text-strong" title={formatNumber(stat.value)}>
               {stat.compact ? formatCompact(stat.value) : formatNumber(stat.value)}
             </dd>
             <dd className="mt-1 font-mono text-[0.65rem] uppercase tracking-wider text-subtle">via {stat.source}</dd>

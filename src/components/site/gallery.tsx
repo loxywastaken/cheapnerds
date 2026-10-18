@@ -73,12 +73,12 @@ export function Gallery({ images, title }: { images: string[]; title: string }) 
 
   return (
     <div>
-      <div className="group relative aspect-video overflow-hidden rounded-3xl border border-line bg-surface-2">
+      <div className="group relative aspect-video overflow-hidden rounded-3xl border-[3px] border-outline bg-surface-2 shadow-[0_6px_0_var(--color-outline)]">
         {slide}
         <button
           type="button"
           onClick={() => setLightbox(true)}
-          className="absolute right-3 top-3 grid size-10 place-items-center rounded-full border border-white/10 bg-ink/60 text-white opacity-0 backdrop-blur-md transition-opacity hover:bg-ink/80 focus-visible:opacity-100 group-hover:opacity-100 max-md:opacity-100"
+          className="absolute right-3 top-3 grid size-10 place-items-center rounded-full border-[2.5px] border-outline bg-white text-outline opacity-0 shadow-[0_3px_0_var(--color-outline)] transition-opacity hover:bg-surface-2 focus-visible:opacity-100 group-hover:opacity-100 max-md:opacity-100"
           aria-label="Open fullscreen"
         >
           <Expand className="size-4" />
@@ -108,7 +108,7 @@ export function Gallery({ images, title }: { images: string[]; title: string }) 
                 aria-current={i === index}
                 className={cn(
                   "relative block aspect-video w-24 overflow-hidden rounded-xl border-2 transition-all sm:w-28",
-                  i === index ? "border-brand-soft" : "border-transparent opacity-55 hover:opacity-100",
+                  i === index ? "border-outline shadow-[0_3px_0_var(--color-outline)]" : "border-transparent opacity-60 hover:opacity-100",
                 )}
               >
                 <Image src={src} alt="" fill sizes="112px" className="object-cover" />
@@ -134,7 +134,7 @@ export function Gallery({ images, title }: { images: string[]; title: string }) 
               type="button"
               autoFocus
               onClick={() => setLightbox(false)}
-              className="absolute right-4 top-4 grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white hover:bg-white/20"
+              className="absolute right-4 top-4 grid size-11 place-items-center rounded-full border-[2.5px] border-outline bg-white text-outline shadow-[0_3px_0_var(--color-outline)] hover:bg-surface-2"
               aria-label="Close"
             >
               <X className="size-5" />
@@ -160,7 +160,7 @@ function ArrowButton({ side, onClick, large }: { side: "left" | "right"; onClick
       onClick={onClick}
       aria-label={side === "left" ? "Previous screenshot" : "Next screenshot"}
       className={cn(
-        "absolute top-1/2 z-10 grid -translate-y-1/2 place-items-center rounded-full border border-white/10 bg-ink/60 text-white backdrop-blur-md transition-colors hover:bg-ink/85",
+        "absolute top-1/2 z-10 grid -translate-y-1/2 place-items-center rounded-full border-[2.5px] border-outline bg-white text-outline shadow-[0_3px_0_var(--color-outline)] transition-transform hover:-translate-y-[calc(50%+2px)]",
         large ? "size-12" : "size-10",
         side === "left" ? (large ? "left-4" : "left-3") : large ? "right-4" : "right-3",
       )}

@@ -7,7 +7,7 @@ export function EmptyState({ icon: Icon, title, children }: { icon: LucideIcon; 
       <div className="mb-5 grid size-14 place-items-center rounded-2xl border border-line bg-surface-2 text-brand-soft">
         <Icon className="size-6" aria-hidden="true" />
       </div>
-      <h3 className="text-lg font-semibold text-white">{title}</h3>
+      <h3 className="text-lg font-semibold text-strong">{title}</h3>
       {children && <div className="mt-2 max-w-md text-sm text-muted">{children}</div>}
     </div>
   );
