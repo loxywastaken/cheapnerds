@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { Gamepad2, type LucideIcon } from "lucide-react";
+import { LowPolyScene } from "@/components/site/low-poly";
 import { cn } from "@/lib/utils";
 
 /**
  * Responsive, lazily loaded image that fills its (relatively positioned) parent.
- * Renders a quiet branded placeholder when no image is available, never a fake one.
+ * Without an image it shows a cartoon low-poly scene (seeded by `seed`) instead of an empty box.
  */
 export function CoverImage({
   src,
@@ -12,7 +12,7 @@ export function CoverImage({
   sizes,
   preload,
   className,
-  fallbackIcon: FallbackIcon = Gamepad2,
+  seed,
   zoom = true,
 }: {
   src: string | null | undefined;
@@ -20,15 +20,13 @@ export function CoverImage({
   sizes: string;
   preload?: boolean;
   className?: string;
-  fallbackIcon?: LucideIcon;
+  seed?: string;
   zoom?: boolean;
 }) {
   if (!src) {
     return (
-      <div className={cn("absolute inset-0 grid place-items-center bg-surface-2", className)} role="img" aria-label={alt}>
-        <div className="dot-grid absolute inset-0 opacity-60" aria-hidden="true" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(255_178_26/0.18),transparent_60%)]" aria-hidden="true" />
-        <FallbackIcon className="relative size-10 text-strong/20" aria-hidden="true" />
+      <div className={cn("absolute inset-0", className)} role={alt ? "img" : undefined} aria-label={alt || undefined}>
+        <LowPolyScene seed={seed || alt || "cheap-nerds"} />
       </div>
     );
   }

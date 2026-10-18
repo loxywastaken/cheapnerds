@@ -41,7 +41,7 @@ export default async function AdminProjectsPage() {
           {rows.map((p) => (
             <li key={p.id} className="panel overflow-hidden">
               <div className="relative aspect-video bg-surface-2">
-                <CoverImage src={p.coverUrl} alt="" sizes="360px" fallbackIcon={Boxes} zoom={false} />
+                <CoverImage src={p.coverUrl} alt="" sizes="360px" seed={p.slug} zoom={false} />
                 <ProjectStatusBadge status={p.status} className="absolute left-3 top-3 bg-ink/60" />
               </div>
               <div className="p-4">

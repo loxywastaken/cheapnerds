@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { ArrowLeft, ArrowUpRight, Boxes } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Gallery } from "@/components/site/gallery";
 import { ProjectStatusBadge } from "@/components/ui/badges";
 import { buttonClass } from "@/components/ui/button";
@@ -65,7 +65,7 @@ async function ProjectDetail({ params }: Pick<PageProps<"/work/[slug]">, "params
           <Gallery images={images} title={project.title} />
         ) : (
           <div className="relative aspect-video overflow-hidden rounded-3xl border-[3px] border-outline bg-surface-2 shadow-[0_6px_0_var(--color-outline)]">
-            <CoverImage src={images[0]} alt={project.title} sizes="(min-width: 1024px) 1024px, 100vw" preload zoom={false} fallbackIcon={Boxes} />
+            <CoverImage src={images[0]} alt={project.title} sizes="(min-width: 1024px) 1024px, 100vw" preload zoom={false} seed={project.slug} />
           </div>
         )}
       </div>

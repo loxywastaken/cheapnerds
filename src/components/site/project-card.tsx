@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Boxes } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { ProjectStatusBadge } from "@/components/ui/badges";
 import { CoverImage } from "@/components/ui/cover-image";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
@@ -10,7 +10,7 @@ export function ProjectCard({ project }: { project: Pick<Project, "slug" | "titl
   return (
     <SpotlightCard className="group flex h-full flex-col overflow-hidden">
       <div className="relative aspect-[4/3] overflow-hidden border-b-[3px] border-outline bg-surface-2">
-        <CoverImage src={project.coverUrl} alt="" sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" fallbackIcon={Boxes} />
+        <CoverImage src={project.coverUrl} alt="" sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" seed={project.slug} />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" aria-hidden="true" />
         <ProjectStatusBadge status={project.status} className="absolute left-3 top-3 bg-ink/60" />
         <span className="absolute bottom-3 right-3 grid size-9 translate-y-2 place-items-center rounded-full border-[2.5px] border-outline bg-white text-outline opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100" aria-hidden="true">

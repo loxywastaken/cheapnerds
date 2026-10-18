@@ -7,6 +7,7 @@ import { CoverImage } from "@/components/ui/cover-image";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import type { GameView } from "@/lib/data";
 import { cn, formatCompact } from "@/lib/utils";
+import { LowPolyScene } from "./low-poly";
 import { PlatformIcons } from "./platform-icons";
 
 export function GameCard({ game, preload, layout = "card" }: { game: GameView; preload?: boolean; layout?: "card" | "wide" }) {
@@ -40,7 +41,7 @@ export function GameCard({ game, preload, layout = "card" }: { game: GameView; p
             {game.iconUrl ? (
               <Image src={game.iconUrl} alt="" fill sizes="64px" className="object-cover" />
             ) : (
-              <span className="grid size-full place-items-center font-display text-xl font-semibold text-strong/50">{game.name.slice(0, 1)}</span>
+              <LowPolyScene seed={game.slug} compact />
             )}
           </div>
           <PlatformIcons platforms={game.platforms} />

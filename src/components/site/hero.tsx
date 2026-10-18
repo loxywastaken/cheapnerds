@@ -8,7 +8,7 @@ import type { GameView } from "@/lib/data";
 import type { SiteSettings } from "@/lib/settings";
 import { formatCompact, formatNumber } from "@/lib/utils";
 import { HeroIntro } from "./hero-intro";
-import { LowPolyCube, LowPolyGem } from "./low-poly";
+import { LowPolyCube, LowPolyGem, LowPolyScene } from "./low-poly";
 import { Particles } from "./particles";
 
 /** Renders the site name inside the heading in the logo's bubbly gold/ice lettering. */
@@ -83,14 +83,14 @@ function FeaturedShowcase({ game }: { game: GameView }) {
       <div className="animate-float rotate-[1.5deg] [animation-duration:7s]">
         <div className="group panel overflow-hidden p-2">
           <div className="relative aspect-video overflow-hidden rounded-[1.1rem] border-[3px] border-outline bg-surface-2">
-            <CoverImage src={game.thumbnailUrl} alt={`${game.name} thumbnail`} sizes="(min-width: 1024px) 600px, 100vw" preload />
+            <CoverImage src={game.thumbnailUrl} seed={`${game.slug}-hero`} alt={`${game.name} thumbnail`} sizes="(min-width: 1024px) 600px, 100vw" preload />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/10 to-transparent" aria-hidden="true" />
             <span className="absolute left-3 top-3 -rotate-3 rounded-full border-[2.5px] border-outline bg-[#ffd43b] px-3 py-0.5 font-display text-sm font-bold text-outline shadow-[0_2px_0_var(--color-outline)]">
               Featured
             </span>
             <div className="absolute inset-x-0 bottom-0 flex items-end gap-3 p-4 sm:p-5">
               <div className="relative size-14 shrink-0 overflow-hidden rounded-2xl border-[3px] border-outline bg-surface-3 shadow-[0_3px_0_var(--color-outline)] sm:size-16">
-                {game.iconUrl && <Image src={game.iconUrl} alt="" fill sizes="64px" className="object-cover" />}
+                {game.iconUrl ? <Image src={game.iconUrl} alt="" fill sizes="64px" className="object-cover" /> : <LowPolyScene seed={game.slug} compact />}
               </div>
               <div className="min-w-0">
                 <h2 className="truncate text-xl font-semibold text-white sm:text-2xl">{game.name}</h2>

@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { ArrowLeft, ArrowUpRight, CalendarDays, Clock, Eye, Heart, History, Tag, ThumbsUp, Users } from "lucide-react";
 import { Gallery } from "@/components/site/gallery";
 import { platformIcons } from "@/components/site/platform-icons";
+import { LowPolyScene } from "@/components/site/low-poly";
 import { PostCard } from "@/components/site/post-card";
 import { StatusBadge } from "@/components/ui/badges";
 import { buttonClass } from "@/components/ui/button";
@@ -86,7 +87,7 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
                 {game.iconUrl ? (
                   <Image src={game.iconUrl} alt={`${game.name} icon`} fill sizes="128px" className="object-cover" preload />
                 ) : (
-                  <span className="grid size-full place-items-center font-display text-4xl text-strong/40">{game.name[0]}</span>
+                  <LowPolyScene seed={game.slug} compact />
                 )}
               </div>
               <div className="min-w-0">

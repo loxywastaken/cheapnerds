@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Newspaper, Pin } from "lucide-react";
+import { Pin } from "lucide-react";
 import { CoverImage } from "@/components/ui/cover-image";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { POST_CATEGORY_LABELS, type PostCategory } from "@/lib/constants";
@@ -20,7 +20,7 @@ export function PostCard({ post, variant = "default" }: { post: PostCardData; va
   return (
     <SpotlightCard className={cn("group flex h-full overflow-hidden", large ? "flex-col lg:flex-row" : "flex-col")}>
       <div className={cn("relative overflow-hidden border-outline bg-surface-2", large ? "aspect-video border-b-[3px] lg:aspect-auto lg:min-h-[22rem] lg:w-3/5 lg:border-b-0 lg:border-r-[3px]" : "aspect-[16/9] border-b-[3px]")}>
-        <CoverImage src={post.coverUrl} alt="" sizes={large ? "(min-width: 1024px) 700px, 100vw" : "(min-width: 1024px) 400px, 100vw"} fallbackIcon={Newspaper} />
+        <CoverImage src={post.coverUrl} alt="" sizes={large ? "(min-width: 1024px) 700px, 100vw" : "(min-width: 1024px) 400px, 100vw"} seed={post.slug} />
       </div>
       <div className={cn("flex flex-1 flex-col p-5", large && "lg:p-8")}>
         <div className="flex flex-wrap items-center gap-2 text-xs">
