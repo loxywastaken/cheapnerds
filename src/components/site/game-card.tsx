@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Eye, Users } from "lucide-react";
 import { StatusBadge } from "@/components/ui/badges";
+import { buttonClass } from "@/components/ui/button";
 import { CoverImage } from "@/components/ui/cover-image";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import type { GameView } from "@/lib/data";
@@ -75,13 +76,13 @@ export function GameCard({ game, preload, layout = "card" }: { game: GameView; p
               href={game.playUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative z-[3] inline-flex h-9 items-center gap-1.5 rounded-full bg-white px-4 text-sm font-medium text-ink transition-colors hover:bg-ice"
+              className={buttonClass("primary", "sm", "relative z-[3]")}
             >
               Play
               <ArrowUpRight className="size-3.5" aria-hidden="true" />
             </a>
           ) : (
-            <span className="text-xs font-medium text-violet-soft">View details →</span>
+            <span className="text-xs font-medium text-brand">View details →</span>
           )}
         </div>
       </div>

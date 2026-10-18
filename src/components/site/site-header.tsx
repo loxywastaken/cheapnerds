@@ -73,9 +73,9 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       {announcement && !open && (
-        <div className="border-b border-line bg-[linear-gradient(90deg,rgb(139_92_246/0.22),rgb(59_130_246/0.16),rgb(139_92_246/0.22))] backdrop-blur-xl">
+        <div className="border-b border-line bg-[linear-gradient(90deg,rgb(255_178_26/0.22),rgb(91_147_184/0.16),rgb(255_178_26/0.22))] backdrop-blur-xl">
           <div className="container-page flex h-9 items-center justify-center gap-2 text-center text-[0.8rem] text-fg">
-            <span className="size-1.5 shrink-0 animate-pulse-dot rounded-full bg-violet-soft" aria-hidden="true" />
+            <span className="size-1.5 shrink-0 animate-pulse-dot rounded-full bg-brand-soft" aria-hidden="true" />
             {announcement.href ? (
               <Link href={announcement.href} className="group inline-flex items-center gap-1.5 truncate hover:text-white">
                 <span className="truncate">{announcement.text}</span>
@@ -192,7 +192,7 @@ function HeaderView({ siteName, logoUrl, discordUrl, announcement, pathname }: H
                       )}
                     >
                       {link.label}
-                      {active && <span className="size-2 rounded-full bg-violet-soft" aria-hidden="true" />}
+                      {active && <span className="size-2 rounded-full bg-brand-soft" aria-hidden="true" />}
                     </Link>
                   </motion.li>
                 );

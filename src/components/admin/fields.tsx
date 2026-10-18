@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { useFieldError, useFormPending } from "./action-form";
 
 export const inputClass =
-  "w-full rounded-xl border border-line bg-ink/60 px-3.5 py-2.5 text-sm text-white placeholder:text-subtle transition-[border-color,box-shadow] focus:border-violet/60 focus:outline-none focus:ring-4 focus:ring-violet/15 aria-[invalid=true]:border-danger/60 disabled:opacity-60";
+  "w-full rounded-xl border border-line bg-ink/60 px-3.5 py-2.5 text-sm text-white placeholder:text-subtle transition-[border-color,box-shadow] focus:border-brand/60 focus:outline-none focus:ring-4 focus:ring-brand/15 aria-[invalid=true]:border-danger/60 disabled:opacity-60";
 
 export function Field({
   label,
@@ -95,7 +95,7 @@ export function Toggle({ label, name, description, defaultChecked }: { label: st
       </span>
       <span className="relative mt-0.5 inline-flex shrink-0">
         <input id={id} type="checkbox" name={name} defaultChecked={defaultChecked} className="peer sr-only" />
-        <span className="h-6 w-10 rounded-full bg-surface-3 transition-colors peer-checked:bg-violet peer-focus-visible:ring-2 peer-focus-visible:ring-violet-soft" />
+        <span className="h-6 w-10 rounded-full bg-surface-3 transition-colors peer-checked:bg-brand peer-focus-visible:ring-2 peer-focus-visible:ring-brand-soft" />
         <span className="absolute left-0.5 top-0.5 size-5 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4" />
       </span>
     </label>
@@ -110,7 +110,7 @@ export function CheckboxGroup({ label, name, options, defaultValue }: { label: s
         {options.map((o) => (
           <label key={o.value} className="cursor-pointer">
             <input type="checkbox" name={name} value={o.value} defaultChecked={defaultValue.includes(o.value)} className="peer sr-only" />
-            <span className="inline-flex items-center rounded-full border border-line bg-ink/40 px-3.5 py-1.5 text-sm text-muted transition-colors peer-checked:border-violet/60 peer-checked:bg-violet/15 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-violet-soft">
+            <span className="inline-flex items-center rounded-full border border-line bg-ink/40 px-3.5 py-1.5 text-sm text-muted transition-colors peer-checked:border-brand/60 peer-checked:bg-brand/15 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand-soft">
               {o.label}
             </span>
           </label>

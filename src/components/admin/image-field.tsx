@@ -81,7 +81,7 @@ export function ImageField({
         className={cn(
           "relative overflow-hidden rounded-2xl border border-dashed bg-ink/40 transition-colors",
           aspect,
-          dragging ? "border-violet-soft bg-violet/10" : error ? "border-danger/60" : "border-line-strong",
+          dragging ? "border-brand-soft bg-brand/10" : error ? "border-danger/60" : "border-line-strong",
         )}
       >
         {value && isAllowedImageRef(value) ? (
@@ -181,7 +181,7 @@ export function GalleryField({ label, name, defaultValue, hint }: { label: strin
               upload(e.dataTransfer.files);
             }}
             disabled={pending}
-            className="flex aspect-video w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed border-line-strong bg-ink/40 text-xs text-muted transition-colors hover:border-violet-soft hover:text-white"
+            className="flex aspect-video w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed border-line-strong bg-ink/40 text-xs text-muted transition-colors hover:border-brand-soft hover:text-white"
           >
             {pending ? <LoaderCircle className="size-5 animate-spin" /> : <ImagePlus className="size-5" />}
             {pending ? "Uploading…" : "Add images"}

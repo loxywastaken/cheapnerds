@@ -22,8 +22,8 @@ export function AnalyticsChart({ daily }: { daily: AnalyticsData["daily"] }) {
           return (
             <g key={d.day}>
               <title>{`${d.day}: ${formatNumber(d.views)} views, ${formatNumber(d.visitors)} visitors`}</title>
-              <rect x={x} y={height - h} width={barW} height={Math.max(h, d.views ? 2 : 0)} rx={Math.min(4, barW / 2)} fill="rgb(139 92 246 / 0.35)" />
-              <rect x={x + barW * 0.2} y={height - vh} width={barW * 0.6} height={Math.max(vh, d.visitors ? 2 : 0)} rx={Math.min(3, barW / 3)} fill="#7cb4ff" />
+              <rect x={x} y={height - h} width={barW} height={Math.max(h, d.views ? 2 : 0)} rx={Math.min(4, barW / 2)} fill="rgb(255 178 26 / 0.35)" />
+              <rect x={x + barW * 0.2} y={height - vh} width={barW * 0.6} height={Math.max(vh, d.visitors ? 2 : 0)} rx={Math.min(3, barW / 3)} fill="#a8cfea" />
             </g>
           );
         })}
@@ -36,10 +36,10 @@ export function AnalyticsChart({ daily }: { daily: AnalyticsData["daily"] }) {
       </svg>
       <figcaption className="mt-3 flex gap-4 text-xs text-muted">
         <span className="inline-flex items-center gap-1.5">
-          <span className="size-2.5 rounded-sm bg-violet/40" aria-hidden="true" /> Page views
+          <span className="size-2.5 rounded-sm bg-brand/40" aria-hidden="true" /> Page views
         </span>
         <span className="inline-flex items-center gap-1.5">
-          <span className="size-2.5 rounded-sm bg-blue-soft" aria-hidden="true" /> Unique visitors
+          <span className="size-2.5 rounded-sm bg-ice-soft" aria-hidden="true" /> Unique visitors
         </span>
       </figcaption>
     </figure>

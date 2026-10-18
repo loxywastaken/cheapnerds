@@ -76,14 +76,14 @@ export function FilterableGrid({
                 disabled={f.value !== "all" && count === 0}
                 className={cn(
                   "relative inline-flex h-10 shrink-0 items-center gap-2 rounded-full border px-4 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-40",
-                  active ? "border-transparent text-ink" : "border-line text-muted hover:border-line-strong hover:text-white",
+                  active ? "border-transparent font-medium text-brand-ink" : "border-line text-muted hover:border-line-strong hover:text-white",
                 )}
               >
                 {active && (
-                  <motion.span layoutId="filter-pill" className="absolute inset-0 rounded-full bg-white" transition={{ type: "spring", stiffness: 420, damping: 34 }} />
+                  <motion.span layoutId="filter-pill" className="absolute inset-0 rounded-full bg-[linear-gradient(180deg,#ffe656,#ffb21a)] shadow-[inset_0_1px_0_rgb(255_255_255/0.6),0_2px_0_#b45200]" transition={{ type: "spring", stiffness: 420, damping: 34 }} />
                 )}
                 <span className="relative">{f.label}</span>
-                <span className={cn("relative font-mono text-[0.7rem]", active ? "text-ink/60" : "text-subtle")}>{count}</span>
+                <span className={cn("relative font-mono text-[0.7rem]", active ? "text-brand-ink/60" : "text-subtle")}>{count}</span>
               </button>
             );
           })}
@@ -102,7 +102,7 @@ export function FilterableGrid({
               onChange={(e) => setQuery(e.target.value)}
               placeholder={searchPlaceholder ?? "Search…"}
               maxLength={100}
-              className="h-11 w-full rounded-full border border-line bg-surface pl-11 pr-10 text-sm text-white placeholder:text-subtle focus:border-violet/60 focus:outline-none focus:ring-4 focus:ring-violet/15 [&::-webkit-search-cancel-button]:hidden"
+              className="h-11 w-full rounded-full border border-line bg-surface pl-11 pr-10 text-sm text-white placeholder:text-subtle focus:border-brand/60 focus:outline-none focus:ring-4 focus:ring-brand/15 [&::-webkit-search-cancel-button]:hidden"
             />
             {query && (
               <button
@@ -148,7 +148,7 @@ export function FilterableGrid({
               setQuery("");
               setFilter("all");
             }}
-            className="mt-3 text-sm text-violet-soft hover:text-white"
+            className="mt-3 text-sm text-brand-soft hover:text-white"
           >
             Clear filters
           </button>

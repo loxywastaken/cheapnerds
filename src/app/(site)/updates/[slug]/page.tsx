@@ -63,7 +63,7 @@ async function PostDetail({ params }: Pick<PageProps<"/updates/[slug]">, "params
         </Link>
         <header className="mt-8">
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="rounded-full border border-violet/30 bg-violet/10 px-3 py-1 text-xs font-medium text-violet-soft">{POST_CATEGORY_LABELS[post.category]}</span>
+            <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand-soft">{POST_CATEGORY_LABELS[post.category]}</span>
             <time dateTime={toIsoDate(post.publishedAt)} className="text-subtle">
               {formatDate(post.publishedAt)}
             </time>
@@ -75,7 +75,7 @@ async function PostDetail({ params }: Pick<PageProps<"/updates/[slug]">, "params
               href={`/games/${game.slug}`}
               className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3.5 py-1.5 text-sm text-fg transition-colors hover:border-line-strong"
             >
-              <Gamepad2 className="size-4 text-violet-soft" aria-hidden="true" /> {game.name}
+              <Gamepad2 className="size-4 text-brand-soft" aria-hidden="true" /> {game.name}
             </Link>
           )}
         </header>

@@ -34,7 +34,7 @@ export default async function AdminGamesPage() {
       />
       {rows.length === 0 ? (
         <EmptyState icon={Gamepad2} title="No games yet">
-          <Link href="/admin/games/new" className="text-violet-soft hover:text-white">
+          <Link href="/admin/games/new" className="text-brand-soft hover:text-white">
             Add your first game from a Roblox link →
           </Link>
         </EmptyState>

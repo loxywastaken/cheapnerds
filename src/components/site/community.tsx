@@ -3,6 +3,7 @@ import { ArrowUpRight, BadgeCheck, BookOpen, Users } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { DiscordIcon, RobloxIcon, featureIcons } from "@/components/ui/icons";
 import { Reveal } from "@/components/ui/reveal";
+import { DEFAULT_LOGO } from "./logo";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import type { DiscordServer } from "@/lib/discord";
 import type { RobloxGroup } from "@/lib/roblox";
@@ -18,7 +19,7 @@ function FeatureGrid({ items, columns = 2 }: { items: FeatureItem[]; columns?: 2
         return (
           <Reveal as="li" key={`${item.title}-${i}`} delay={i * 0.06}>
             <SpotlightCard className="h-full p-5">
-              <div className="mb-4 grid size-10 place-items-center rounded-xl border border-line bg-surface-2 text-violet-soft">
+              <div className="mb-4 grid size-10 place-items-center rounded-xl border border-line bg-surface-2 text-brand-soft">
                 <Icon className="size-[1.1rem]" aria-hidden="true" />
               </div>
               <h3 className="font-semibold text-white">{item.title}</h3>
@@ -36,7 +37,7 @@ function LiveCount({ value, label, pulse }: { value: number | null | undefined; 
   if (value == null) return null;
   return (
     <span className="inline-flex items-center gap-2 rounded-full border border-line bg-ink/50 px-3 py-1.5 text-sm text-fg backdrop-blur-md">
-      <span className={cn("size-2 rounded-full", pulse ? "animate-pulse-dot bg-ok" : "bg-violet-soft")} aria-hidden="true" />
+      <span className={cn("size-2 rounded-full", pulse ? "animate-pulse-dot bg-ok" : "bg-brand-soft")} aria-hidden="true" />
       <span className="font-semibold tabular-nums">{formatNumber(value)}</span>
       <span className="text-muted">{label}</span>
     </span>
@@ -65,8 +66,8 @@ export function GroupPromo({
             {banner ? (
               <Image src={banner} alt="" fill sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover" />
             ) : (
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgb(255_178_63/0.28),transparent_55%),radial-gradient(ellipse_at_90%_100%,rgb(139_92_246/0.35),transparent_55%),var(--color-surface-2)]">
-                <div className="dot-grid absolute inset-0 opacity-70" />
+              <div className="absolute inset-0 overflow-hidden bg-[radial-gradient(ellipse_at_15%_120%,rgb(255_170_30/0.45),transparent_60%),radial-gradient(ellipse_at_95%_0%,rgb(168_207_234/0.18),transparent_55%),var(--color-surface-2)]">
+                <div className="sunburst absolute left-[12%] top-full size-[70rem] -translate-x-1/2 -translate-y-1/2 animate-spin-slow" />
               </div>
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent" aria-hidden="true" />
@@ -75,19 +76,13 @@ export function GroupPromo({
             <div className="-mt-14 flex flex-col gap-5 sm:-mt-16 sm:flex-row sm:items-end sm:justify-between">
               <div className="flex items-end gap-4">
                 <div className="relative size-24 shrink-0 overflow-hidden rounded-3xl border-4 border-surface bg-surface-3 shadow-2xl shadow-black/50 sm:size-28">
-                  {group?.iconUrl ? (
-                    <Image src={group.iconUrl} alt={`${name} icon`} fill sizes="112px" className="object-cover" />
-                  ) : (
-                    <span className="grid size-full place-items-center text-white/40">
-                      <RobloxIcon size={36} />
-                    </span>
-                  )}
+                  <Image src={group?.iconUrl || settings.branding.logoUrl || DEFAULT_LOGO} alt={`${name} icon`} fill sizes="112px" className="object-cover" />
                 </div>
                 <div className="pb-1">
                   <p className="eyebrow !text-[0.66rem]">Official Roblox group</p>
                   <h3 className="mt-1 flex items-center gap-2 text-2xl font-semibold text-white sm:text-3xl">
                     {name}
-                    {group?.verified && <BadgeCheck className="size-5 text-blue-soft" aria-label="Verified" />}
+                    {group?.verified && <BadgeCheck className="size-5 text-ice-soft" aria-label="Verified" />}
                   </h3>
                 </div>
               </div>

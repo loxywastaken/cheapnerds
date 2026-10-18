@@ -75,9 +75,9 @@ export function SettingsForm({ initial, games }: { initial: SiteSettings; games:
         </Row>
       </FormSection>
 
-      <FormSection title="Branding" description="Upload your logo to replace the built-in wordmark in the header and footer.">
-        <div className="max-w-sm">
-          <ImageField label="Logo (wide, transparent PNG works best)" name="branding.logoUrl" defaultValue={settings.branding.logoUrl} aspect="aspect-[3/1]" onChange={(v) => update("branding.logoUrl", v)} />
+      <FormSection title="Branding" description="The square logo badge shown next to the wordmark in the header and footer. Leave empty to use the built-in Cheap Nerds logo.">
+        <div className="max-w-[12rem]">
+          <ImageField label="Logo (square)" name="branding.logoUrl" defaultValue={settings.branding.logoUrl} aspect="aspect-square" onChange={(v) => update("branding.logoUrl", v)} />
         </div>
       </FormSection>
 
@@ -174,7 +174,7 @@ function Check({ label, description, checked, onChange }: { label: string; descr
       </span>
       <span className="relative mt-0.5 inline-flex shrink-0">
         <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="peer sr-only" />
-        <span className="h-6 w-10 rounded-full bg-surface-3 transition-colors peer-checked:bg-violet peer-focus-visible:ring-2 peer-focus-visible:ring-violet-soft" />
+        <span className="h-6 w-10 rounded-full bg-surface-3 transition-colors peer-checked:bg-brand peer-focus-visible:ring-2 peer-focus-visible:ring-brand-soft" />
         <span className="absolute left-0.5 top-0.5 size-5 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4" />
       </span>
     </label>
@@ -200,7 +200,7 @@ function FeatureListEditor({ label, path, items, onChange }: { label: string; pa
         return (
           <div key={i} className="grid gap-3 rounded-2xl border border-line bg-ink/30 p-3 sm:grid-cols-[9rem_1fr_auto]">
             <div className="flex items-center gap-2">
-              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-surface-2 text-violet-soft">
+              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-surface-2 text-brand-soft">
                 <Icon className="size-4" aria-hidden="true" />
               </span>
               <select aria-label="Icon" value={item.icon} onChange={(e) => set(i, { icon: e.target.value as FeatureIcon })} className={cn(inputClass, "py-2")}>

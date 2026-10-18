@@ -103,7 +103,7 @@ export default async function HomePage() {
             <div className="panel p-2">
               <div className="flex items-center justify-between px-4 pb-2 pt-3">
                 <h3 className="flex items-center gap-2 text-sm font-medium text-white">
-                  <Clock className="size-4 text-violet-soft" aria-hidden="true" /> Recently updated
+                  <Clock className="size-4 text-brand-soft" aria-hidden="true" /> Recently updated
                 </h3>
                 <span className="font-mono text-[0.65rem] uppercase tracking-wider text-subtle">Live from Roblox</span>
               </div>

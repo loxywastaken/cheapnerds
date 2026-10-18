@@ -60,7 +60,7 @@ export function GameUpdatesManager({ gameId, updates }: { gameId: string; update
               <li key={u.id} className="flex items-start justify-between gap-4 rounded-2xl border border-line p-4">
                 <div className="min-w-0">
                   <p className="text-xs text-subtle">
-                    {u.version && <span className="mr-2 rounded bg-violet/15 px-1.5 py-0.5 font-mono text-violet-soft">{u.version}</span>}
+                    {u.version && <span className="mr-2 rounded bg-brand/15 px-1.5 py-0.5 font-mono text-brand-soft">{u.version}</span>}
                     {formatDate(u.publishedAt)}
                   </p>
                   <p className="mt-1 font-medium text-white">{u.title}</p>

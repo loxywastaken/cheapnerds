@@ -73,7 +73,7 @@ export function ActionSwitch({ checked, onChange, label }: { checked: boolean; o
           router.refresh();
         })
       }
-      className={cn("relative inline-flex h-6 w-10 shrink-0 rounded-full transition-colors disabled:opacity-60", checked ? "bg-violet" : "bg-surface-3")}
+      className={cn("relative inline-flex h-6 w-10 shrink-0 rounded-full transition-colors disabled:opacity-60", checked ? "bg-brand" : "bg-surface-3")}
     >
       <span className={cn("absolute left-0.5 top-0.5 size-5 rounded-full bg-white shadow transition-transform", checked && "translate-x-4")} />
     </button>
@@ -108,7 +108,7 @@ export function ActionSelect({
           router.refresh();
         });
       }}
-      className="rounded-lg border border-line bg-ink/60 px-2.5 py-1.5 text-xs text-fg focus:border-violet/60 focus:outline-none disabled:opacity-60"
+      className="rounded-lg border border-line bg-ink/60 px-2.5 py-1.5 text-xs text-fg focus:border-brand/60 focus:outline-none disabled:opacity-60"
     >
       {options.map((o) => (
         <option key={o.value} value={o.value} className="bg-surface-2">

@@ -38,7 +38,8 @@ export function PageHeader({ eyebrow, title, description, children }: { eyebrow:
   return (
     <header className="relative overflow-hidden border-b border-line">
       <div className="dot-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)]" aria-hidden="true" />
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[48rem] -translate-x-1/2 rounded-full bg-violet/15 blur-[120px]" aria-hidden="true" />
+      <div className="sunburst pointer-events-none absolute left-[18%] top-0 size-[90rem] -translate-x-1/2 -translate-y-1/2 opacity-70" aria-hidden="true" />
+      <div className="pointer-events-none absolute -top-40 left-[18%] h-80 w-[44rem] -translate-x-1/2 rounded-full bg-brand/15 blur-[120px]" aria-hidden="true" />
       <div className="container-page relative pb-14 pt-32 sm:pb-16 sm:pt-40">
         <p className="eyebrow mb-4">{eyebrow}</p>
         <h1 className="max-w-3xl text-4xl font-semibold text-white sm:text-6xl">{title}</h1>

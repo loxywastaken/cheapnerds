@@ -133,7 +133,7 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
 
           <section aria-labelledby="update-log">
             <h2 id="update-log" className="mb-6 flex items-center gap-2 text-2xl font-semibold text-white">
-              <History className="size-5 text-violet-soft" aria-hidden="true" /> Update log
+              <History className="size-5 text-brand-soft" aria-hidden="true" /> Update log
             </h2>
             {updates.length === 0 ? (
               <p className="panel px-6 py-8 text-sm text-muted">No update notes have been posted yet.</p>
@@ -142,12 +142,12 @@ async function GameDetail({ params }: Pick<PageProps<"/games/[slug]">, "params">
                 {updates.map((update, i) => (
                   <Reveal as="li" key={update.id} delay={Math.min(i, 4) * 0.05} className="relative">
                     <span
-                      className={`absolute -left-[1.84rem] top-6 size-3 rounded-full border-2 border-ink sm:-left-[2.34rem] ${i === 0 ? "bg-violet-soft shadow-[0_0_12px_rgb(185_163_255/0.8)]" : "bg-surface-3"}`}
+                      className={`absolute -left-[1.84rem] top-6 size-3 rounded-full border-2 border-ink sm:-left-[2.34rem] ${i === 0 ? "bg-brand-soft shadow-[0_0_12px_rgb(255_227_77/0.8)]" : "bg-surface-3"}`}
                       aria-hidden="true"
                     />
                     <div className="panel p-5 sm:p-6">
                       <div className="flex flex-wrap items-center gap-2 text-xs">
-                        {update.version && <span className="rounded-md bg-violet/15 px-2 py-0.5 font-mono text-violet-soft">{update.version}</span>}
+                        {update.version && <span className="rounded-md bg-brand/15 px-2 py-0.5 font-mono text-brand-soft">{update.version}</span>}
                         <time dateTime={toIsoDate(update.publishedAt)} className="text-subtle">
                           {formatDate(update.publishedAt)}
                         </time>

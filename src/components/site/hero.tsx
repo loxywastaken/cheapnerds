@@ -10,13 +10,18 @@ import { formatCompact } from "@/lib/utils";
 import { HeroIntro } from "./hero-intro";
 import { Particles } from "./particles";
 
+/** Renders the site name inside the heading in the logo's bubbly gold/ice lettering. */
 function highlightName(title: string, name: string) {
   const index = title.indexOf(name);
   if (!name || index === -1) return title;
+  const [first, ...rest] = name.split(" ");
   return (
     <>
       {title.slice(0, index)}
-      <span className="text-gradient-brand">{name}</span>
+      <span className="mt-1 block font-bold uppercase leading-[0.95] tracking-wide sm:mt-2">
+        <span className="text-bubbly-gold">{first}</span>
+        {rest.length > 0 && <span className="text-bubbly-ice"> {rest.join(" ")}</span>}
+      </span>
       {title.slice(index + name.length)}
     </>
   );
@@ -25,18 +30,21 @@ function highlightName(title: string, name: string) {
 export function Hero({ settings, featured }: { settings: SiteSettings; featured: GameView | null }) {
   return (
     <section className="relative isolate overflow-hidden">
-      <div className="dot-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute left-[22%] top-[42%] -z-20 size-[170vmax] -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
+        <div className="sunburst size-full animate-spin-slow" />
+      </div>
+      <div className="pointer-events-none absolute left-[22%] top-[40%] -z-10 h-[36rem] w-[44rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_170_30/0.24),rgb(255_120_0/0.08)_55%,transparent)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute -right-40 top-24 -z-10 h-[28rem] w-[28rem] rounded-full bg-ice-deep/15 blur-[140px]" aria-hidden="true" />
       <Particles className="absolute inset-0 -z-10 size-full" />
-      <div className="pointer-events-none absolute -top-48 left-[10%] -z-10 h-[34rem] w-[34rem] rounded-full bg-violet/20 blur-[140px]" aria-hidden="true" />
-      <div className="pointer-events-none absolute -right-40 top-20 -z-10 h-[28rem] w-[28rem] rounded-full bg-blue/15 blur-[140px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-ink" aria-hidden="true" />
 
       <div className="container-page grid min-h-[100svh] items-center gap-14 pb-20 pt-32 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-28">
         <HeroIntro>
           <p className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-fg/90 backdrop-blur">
-            <Sparkles className="size-3.5 text-spark" aria-hidden="true" />
+            <Sparkles className="size-3.5 text-brand-soft" aria-hidden="true" />
             {settings.hero.eyebrow}
           </p>
-          <h1 className="mt-6 text-[2.75rem] font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl">
+          <h1 className="mt-6 text-[2.9rem] font-semibold leading-[1.02] text-white sm:text-6xl lg:text-[5.25rem]">
             {highlightName(settings.hero.title, settings.siteName)}
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">{settings.hero.subtitle}</p>
@@ -60,7 +68,7 @@ export function Hero({ settings, featured }: { settings: SiteSettings; featured:
 function FeaturedShowcase({ game }: { game: GameView }) {
   return (
     <HeroIntro delay={0.15} className="relative">
-      <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-violet/25 via-transparent to-blue/20 blur-2xl" aria-hidden="true" />
+      <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-brand/30 via-brand-deep/5 to-ice-deep/25 blur-2xl" aria-hidden="true" />
       <div className="animate-float [animation-duration:11s]">
         <div className="group panel overflow-hidden p-2 shadow-2xl shadow-black/60">
           <div className="relative aspect-video overflow-hidden rounded-[1.1rem] bg-surface-2">

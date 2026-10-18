@@ -2,14 +2,16 @@
 
 import { useEffect, useRef } from "react";
 
-type Particle = { x: number; y: number; vx: number; vy: number; r: number; hue: number; alpha: number };
+type Sparkle = { x: number; y: number; vy: number; size: number; color: string; phase: number; speed: number; star: boolean };
+
+const COLORS = ["255, 226, 110", "255, 190, 60", "255, 255, 255", "190, 222, 245"];
 
 /**
- * Lightweight canvas particle field: slow drifting motes with faint links between
- * neighbours, a gentle pull toward the cursor, paused when off-screen or when the
- * user prefers reduced motion.
+ * Twinkling sparkle field inspired by the logo's starburst: tiny glints and a few
+ * four-point stars drift slowly upward and pulse. Pauses off-screen and renders a
+ * single still frame for visitors who prefer reduced motion.
  */
-export function Particles({ className, density = 0.00009 }: { className?: string; density?: number }) {
+export function Particles({ className, density = 0.00007 }: { className?: string; density?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -20,10 +22,24 @@ export function Particles({ className, density = 0.00009 }: { className?: string
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let width = 0;
     let height = 0;
-    let particles: Particle[] = [];
+    let sparkles: Sparkle[] = [];
     let frame = 0;
     let visible = true;
-    const pointer = { x: -9999, y: -9999 };
+    let t = 0;
+
+    const make = (y = Math.random() * height): Sparkle => {
+      const star = Math.random() < 0.18;
+      return {
+        x: Math.random() * width,
+        y,
+        vy: -(Math.random() * 0.12 + 0.03),
+        size: star ? Math.random() * 5 + 4 : Math.random() * 1.3 + 0.5,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.025 + 0.008,
+        star,
+      };
+    };
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -33,60 +49,56 @@ export function Particles({ className, density = 0.00009 }: { className?: string
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(140, Math.max(28, Math.floor(width * height * density)));
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: (Math.random() - 0.5) * 0.18 - 0.05,
-        r: Math.random() * 1.4 + 0.4,
-        hue: Math.random() < 0.55 ? 262 : 217,
-        alpha: Math.random() * 0.5 + 0.25,
-      }));
+      const count = Math.min(120, Math.max(30, Math.floor(width * height * density)));
+      sparkles = Array.from({ length: count }, () => make());
+    };
+
+    const drawStar = (s: Sparkle, alpha: number) => {
+      const r = s.size;
+      ctx.save();
+      ctx.translate(s.x, s.y);
+      const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, r * 1.6);
+      glow.addColorStop(0, `rgba(${s.color}, ${alpha * 0.35})`);
+      glow.addColorStop(1, `rgba(${s.color}, 0)`);
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(0, 0, r * 1.6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = `rgba(${s.color}, ${alpha})`;
+      ctx.beginPath();
+      // Four-point "twinkle" star with concave sides.
+      ctx.moveTo(0, -r);
+      ctx.quadraticCurveTo(0, 0, r, 0);
+      ctx.quadraticCurveTo(0, 0, 0, r);
+      ctx.quadraticCurveTo(0, 0, -r, 0);
+      ctx.quadraticCurveTo(0, 0, 0, -r);
+      ctx.fill();
+      ctx.restore();
     };
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
-      const linkDist = 110;
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
+      for (let i = 0; i < sparkles.length; i++) {
+        const s = sparkles[i];
         if (!reduce) {
-          const dx = pointer.x - p.x;
-          const dy = pointer.y - p.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 180 && dist > 0) {
-            p.vx += (dx / dist) * 0.004;
-            p.vy += (dy / dist) * 0.004;
-          }
-          p.vx *= 0.995;
-          p.vy *= 0.995;
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < -10) p.x = width + 10;
-          if (p.x > width + 10) p.x = -10;
-          if (p.y < -10) p.y = height + 10;
-          if (p.y > height + 10) p.y = -10;
+          s.y += s.vy;
+          s.phase += s.speed;
+          if (s.y < -12) sparkles[i] = make(height + 12);
         }
-        for (let j = i + 1; j < particles.length; j++) {
-          const q = particles[j];
-          const d = Math.hypot(p.x - q.x, p.y - q.y);
-          if (d < linkDist) {
-            ctx.strokeStyle = `hsla(${p.hue}, 90%, 75%, ${(1 - d / linkDist) * 0.09})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(q.x, q.y);
-            ctx.stroke();
-          }
+        const twinkle = 0.5 + 0.5 * Math.sin(s.phase + t * 0.002);
+        const alpha = s.star ? 0.25 + twinkle * 0.6 : 0.15 + twinkle * 0.55;
+        if (s.star) drawStar(s, alpha);
+        else {
+          ctx.fillStyle = `rgba(${s.color}, ${alpha})`;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fill();
         }
-        ctx.fillStyle = `hsla(${p.hue}, 95%, 78%, ${p.alpha})`;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
       }
     };
 
     const loop = () => {
+      t += 16;
       draw();
       if (visible && !reduce) frame = requestAnimationFrame(loop);
     };
@@ -97,16 +109,6 @@ export function Particles({ className, density = 0.00009 }: { className?: string
       if (visible) loop();
     });
 
-    const onMove = (e: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      pointer.x = e.clientX - rect.left;
-      pointer.y = e.clientY - rect.top;
-    };
-    const onLeave = () => {
-      pointer.x = -9999;
-      pointer.y = -9999;
-    };
-
     resize();
     loop();
     observer.observe(canvas);
@@ -115,15 +117,11 @@ export function Particles({ className, density = 0.00009 }: { className?: string
       if (reduce) draw();
     });
     ro.observe(canvas);
-    window.addEventListener("pointermove", onMove, { passive: true });
-    document.addEventListener("pointerleave", onLeave);
 
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
       ro.disconnect();
-      window.removeEventListener("pointermove", onMove);
-      document.removeEventListener("pointerleave", onLeave);
     };
   }, [density]);
 

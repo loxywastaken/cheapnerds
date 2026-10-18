@@ -6,17 +6,21 @@ type Variant = "primary" | "accent" | "secondary" | "ghost" | "discord" | "dange
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-[transform,background-color,border-color,color,box-shadow] duration-200 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50";
+  "group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-[transform,background-color,border-color,color,box-shadow] duration-200 ease-out disabled:pointer-events-none disabled:opacity-50";
+
+// "Bubbly" buttons echo the chunky, outlined lettering of the logo: a glossy top
+// highlight and a solid darker base that presses down on click.
+const gold =
+  "bg-[linear-gradient(180deg,#ffe656_0%,#ffc21f_45%,#ff9f0f_100%)] font-semibold text-brand-ink shadow-[inset_0_1px_0_rgb(255_255_255/0.65),inset_0_-2px_0_rgb(160_60_0/0.25),0_3px_0_#b45200,0_10px_28px_-8px_rgb(255_170_20/0.55)] hover:-translate-y-px hover:brightness-105 active:translate-y-[2px] active:shadow-[inset_0_1px_0_rgb(255_255_255/0.5),0_1px_0_#b45200,0_6px_18px_-8px_rgb(255_170_20/0.5)]";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-white text-ink shadow-[0_0_0_1px_rgb(255_255_255/0.2),0_8px_30px_-8px_rgb(167_139_250/0.55)] hover:bg-ice hover:shadow-[0_0_0_1px_rgb(255_255_255/0.3),0_12px_40px_-8px_rgb(167_139_250/0.75)]",
-  accent:
-    "bg-violet text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.2),0_8px_30px_-10px_rgb(139_92_246/0.8)] hover:bg-[#9a70ff]",
-  secondary: "border border-line-strong bg-white/[0.04] text-fg backdrop-blur hover:border-white/25 hover:bg-white/[0.08]",
+  primary: gold,
+  accent: gold,
+  secondary:
+    "border border-ice-soft/20 bg-ice/[0.04] text-fg backdrop-blur hover:border-ice-soft/40 hover:bg-ice/[0.08] shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]",
   ghost: "text-muted hover:bg-white/[0.06] hover:text-fg",
   discord:
-    "bg-[#5865F2] text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.2),0_8px_30px_-10px_rgb(88_101_242/0.9)] hover:bg-[#6873f5]",
+    "bg-[#5865F2] font-semibold text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_3px_0_#3a43b8,0_10px_28px_-10px_rgb(88_101_242/0.9)] hover:-translate-y-px hover:bg-[#6873f5] active:translate-y-[2px] active:shadow-[inset_0_1px_0_rgb(255_255_255/0.2),0_1px_0_#3a43b8]",
   danger: "border border-danger/30 bg-danger/10 text-danger hover:bg-danger/20",
 };
 

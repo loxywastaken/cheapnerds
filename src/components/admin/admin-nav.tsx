@@ -49,7 +49,7 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
                 active ? "bg-white/[0.07] text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]" : "text-muted hover:bg-white/[0.04] hover:text-white",
               )}
             >
-              <Icon className={cn("size-4", active && "text-violet-soft")} aria-hidden="true" />
+              <Icon className={cn("size-4", active && "text-brand-soft")} aria-hidden="true" />
               {label}
             </Link>
           </li>
@@ -68,7 +68,7 @@ export function AdminNav({ name, email, logout }: { name: string; email: string;
         <ExternalLink className="size-4" aria-hidden="true" /> View site
       </Link>
       <div className="flex items-center gap-3 rounded-xl bg-white/[0.03] px-3 py-2.5">
-        <span className="grid size-8 shrink-0 place-items-center rounded-full bg-violet/20 text-sm font-semibold text-violet-soft">{name.slice(0, 1).toUpperCase()}</span>
+        <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand/20 text-sm font-semibold text-brand-soft">{name.slice(0, 1).toUpperCase()}</span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm text-white">{name}</p>
           <p className="truncate text-xs text-subtle">{email}</p>

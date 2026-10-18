@@ -102,4 +102,4 @@ scripts/             migrate, seed, create-admin
 drizzle/             SQL migrations
 ```
 
-Fonts in `src/assets/fonts` (Bricolage Grotesque, Geist, Fredoka) are used for Open Graph images and are licensed under the SIL Open Font License.
+Fonts in `src/assets/fonts` (Geist and Fredoka) are used for Open Graph images and are licensed under the SIL Open Font License. The logo lives in `public/brand/logo.png` and also generates the favicon (`src/app/icon.png`, `src/app/apple-icon.png`).

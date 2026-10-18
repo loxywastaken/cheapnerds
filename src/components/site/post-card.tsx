@@ -24,11 +24,11 @@ export function PostCard({ post, variant = "default" }: { post: PostCardData; va
       </div>
       <div className={cn("flex flex-1 flex-col p-5", large && "lg:p-8")}>
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <span className="rounded-full border border-violet/30 bg-violet/10 px-2.5 py-1 font-medium text-violet-soft">
+          <span className="rounded-full border border-brand/30 bg-brand/10 px-2.5 py-1 font-medium text-brand-soft">
             {POST_CATEGORY_LABELS[post.category]}
           </span>
           {post.pinned && (
-            <span className="inline-flex items-center gap-1 text-spark">
+            <span className="inline-flex items-center gap-1 text-brand">
               <Pin className="size-3" aria-hidden="true" /> Pinned
             </span>
           )}
@@ -42,7 +42,7 @@ export function PostCard({ post, variant = "default" }: { post: PostCardData; va
           </Link>
         </h3>
         {post.excerpt && <p className={cn("mt-2 text-sm leading-relaxed text-muted", large ? "line-clamp-4 lg:text-base" : "line-clamp-3")}>{post.excerpt}</p>}
-        <span className="mt-auto pt-5 text-sm font-medium text-violet-soft transition-colors group-hover:text-white">Read more →</span>
+        <span className="mt-auto pt-5 text-sm font-medium text-brand-soft transition-colors group-hover:text-white">Read more →</span>
       </div>
     </SpotlightCard>
   );

@@ -63,7 +63,7 @@ export default async function AdminDashboard() {
         {cards.map(({ label, value, href, Icon }) => (
           <li key={label}>
             <Link href={href} className="panel group flex flex-col p-5 transition-colors hover:border-line-strong">
-              <Icon className="size-5 text-violet-soft" aria-hidden="true" />
+              <Icon className="size-5 text-brand-soft" aria-hidden="true" />
               <span className="mt-4 font-display text-3xl font-semibold text-white">{formatNumber(value)}</span>
               <span className="mt-0.5 flex items-center justify-between text-sm text-muted">
                 {label} <ArrowRight className="size-4 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
@@ -83,7 +83,7 @@ export default async function AdminDashboard() {
                 {!settings.analytics.enabled && " · tracking is turned off in settings"}
               </p>
             </div>
-            <Link href="/admin/analytics" className="text-sm text-violet-soft hover:text-white">
+            <Link href="/admin/analytics" className="text-sm text-brand-soft hover:text-white">
               Details →
             </Link>
           </div>
@@ -119,7 +119,7 @@ export default async function AdminDashboard() {
       <section className="panel mt-6 p-5 sm:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="font-semibold text-white">Recently edited posts</h2>
-          <Link href="/admin/posts" className="text-sm text-violet-soft hover:text-white">
+          <Link href="/admin/posts" className="text-sm text-brand-soft hover:text-white">
             All posts →
           </Link>
         </div>

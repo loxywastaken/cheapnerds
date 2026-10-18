@@ -108,7 +108,7 @@ export function Gallery({ images, title }: { images: string[]; title: string }) 
                 aria-current={i === index}
                 className={cn(
                   "relative block aspect-video w-24 overflow-hidden rounded-xl border-2 transition-all sm:w-28",
-                  i === index ? "border-violet-soft" : "border-transparent opacity-55 hover:opacity-100",
+                  i === index ? "border-brand-soft" : "border-transparent opacity-55 hover:opacity-100",
                 )}
               >
                 <Image src={src} alt="" fill sizes="112px" className="object-cover" />

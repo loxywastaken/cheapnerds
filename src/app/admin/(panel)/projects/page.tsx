@@ -32,7 +32,7 @@ export default async function AdminProjectsPage() {
       />
       {rows.length === 0 ? (
         <EmptyState icon={Boxes} title="No projects yet">
-          <Link href="/admin/projects/new" className="text-violet-soft hover:text-white">
+          <Link href="/admin/projects/new" className="text-brand-soft hover:text-white">
             Add your first project →
           </Link>
         </EmptyState>

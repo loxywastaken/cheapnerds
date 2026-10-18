@@ -27,7 +27,7 @@ export function CoverImage({
     return (
       <div className={cn("absolute inset-0 grid place-items-center bg-surface-2", className)} role="img" aria-label={alt}>
         <div className="dot-grid absolute inset-0 opacity-60" aria-hidden="true" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(139_92_246/0.18),transparent_60%)]" aria-hidden="true" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(255_178_26/0.18),transparent_60%)]" aria-hidden="true" />
         <FallbackIcon className="relative size-10 text-white/20" aria-hidden="true" />
       </div>
     );

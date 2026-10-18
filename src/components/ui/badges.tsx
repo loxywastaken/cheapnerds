@@ -3,8 +3,8 @@ import { cn } from "@/lib/utils";
 
 const gameStatusStyle: Record<GameStatus, string> = {
   released: "text-ok bg-ok/10 border-ok/25",
-  in_development: "text-warn bg-warn/10 border-warn/25",
-  coming_soon: "text-blue-soft bg-blue/10 border-blue/30",
+  in_development: "text-dev bg-dev/10 border-dev/30",
+  coming_soon: "text-ice-soft bg-ice-deep/10 border-ice-deep/30",
 };
 
 export function StatusBadge({ status, className }: { status: GameStatus; className?: string }) {
@@ -24,8 +24,8 @@ export function StatusBadge({ status, className }: { status: GameStatus; classNa
 
 const projectStatusStyle: Record<ProjectStatus, string> = {
   completed: "text-ok bg-ok/10 border-ok/25",
-  in_progress: "text-warn bg-warn/10 border-warn/25",
-  upcoming: "text-blue-soft bg-blue/10 border-blue/30",
+  in_progress: "text-dev bg-dev/10 border-dev/30",
+  upcoming: "text-ice-soft bg-ice-deep/10 border-ice-deep/30",
 };
 
 export function ProjectStatusBadge({ status, className }: { status: ProjectStatus; className?: string }) {

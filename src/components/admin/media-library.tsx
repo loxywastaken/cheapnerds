@@ -51,7 +51,7 @@ export function MediaUploader() {
           upload(e.dataTransfer.files);
         }}
         disabled={pending}
-        className={`flex w-full flex-col items-center justify-center gap-2 rounded-3xl border border-dashed px-6 py-10 text-sm transition-colors ${dragging ? "border-violet-soft bg-violet/10 text-white" : "border-line-strong bg-surface text-muted hover:text-white"}`}
+        className={`flex w-full flex-col items-center justify-center gap-2 rounded-3xl border border-dashed px-6 py-10 text-sm transition-colors ${dragging ? "border-brand-soft bg-brand/10 text-white" : "border-line-strong bg-surface text-muted hover:text-white"}`}
       >
         {pending ? <LoaderCircle className="size-6 animate-spin" /> : <ImagePlus className="size-6" />}
         <span>{pending ? "Uploading…" : "Click or drop images to upload"}</span>

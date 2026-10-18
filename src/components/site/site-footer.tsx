@@ -16,7 +16,7 @@ export function SiteFooter({ settings, year }: { settings: SiteSettings; year: n
 
   return (
     <footer className="relative mt-32 border-t border-line">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet/50 to-transparent" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/50 to-transparent" aria-hidden="true" />
       <div className="container-page grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Link href="/" className="inline-block rounded-xl" aria-label={`${settings.siteName} home`}>

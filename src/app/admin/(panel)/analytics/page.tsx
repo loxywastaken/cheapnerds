@@ -69,7 +69,7 @@ function RankList({ title, rows, empty }: { title: string; rows: { label: string
         <ol className="space-y-2">
           {rows.map((r) => (
             <li key={r.label} className="relative overflow-hidden rounded-lg px-3 py-2 text-sm">
-              <span className="absolute inset-y-0 left-0 rounded-lg bg-violet/15" style={{ width: `${(r.value / max) * 100}%` }} aria-hidden="true" />
+              <span className="absolute inset-y-0 left-0 rounded-lg bg-brand/15" style={{ width: `${(r.value / max) * 100}%` }} aria-hidden="true" />
               <span className="relative flex justify-between gap-4">
                 <span className="truncate font-mono text-xs text-fg">{r.label}</span>
                 <span className="tabular-nums text-muted">{formatNumber(r.value)}</span>

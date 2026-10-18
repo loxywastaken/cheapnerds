@@ -34,7 +34,7 @@ export default async function AdminPostsPage() {
       />
       {rows.length === 0 ? (
         <EmptyState icon={Newspaper} title="No posts yet">
-          <Link href="/admin/posts/new" className="text-violet-soft hover:text-white">
+          <Link href="/admin/posts/new" className="text-brand-soft hover:text-white">
             Write your first post →
           </Link>
         </EmptyState>

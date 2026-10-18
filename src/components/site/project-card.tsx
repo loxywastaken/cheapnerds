@@ -13,7 +13,7 @@ export function ProjectCard({ project }: { project: Pick<Project, "slug" | "titl
         <CoverImage src={project.coverUrl} alt="" sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" fallbackIcon={Boxes} />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" aria-hidden="true" />
         <ProjectStatusBadge status={project.status} className="absolute left-3 top-3 bg-ink/60" />
-        <span className="absolute bottom-3 right-3 grid size-9 translate-y-2 place-items-center rounded-full bg-white text-ink opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100" aria-hidden="true">
+        <span className="absolute bottom-3 right-3 grid size-9 translate-y-2 place-items-center rounded-full bg-brand text-brand-ink opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100" aria-hidden="true">
           <ArrowUpRight className="size-4" />
         </span>
       </div>
