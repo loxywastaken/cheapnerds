@@ -31,20 +31,53 @@ same named parts, so **any skin fits any rifle**.
 The stats are starting points for balancing. They also include reload time, zoom FOV, bullet
 speed and walk speed; you'll find them all in `roblox/SniperData.lua`.
 
+## Import into Roblox Studio (5 minutes)
+
+You need the `models/fbx/` and `studio/` folders. Either download the
+`roblox-snipers-import.zip` bundle, or on GitHub use *Code → Download ZIP*.
+
+1. **Add the scripts.** In the Explorer, right-click **ReplicatedStorage → Insert from File…** and
+   pick `studio/SniperSystem.rbxmx`. That adds a `SniperSystem` folder with every script plus an
+   empty `Models` folder.
+   *Optional test script:* right-click **ServerScriptService → Insert from File…** and pick
+   `studio/GiveSnipers.rbxmx`. It gives every player a random rifle in a random skin.
+2. **Import the rifles.** Open the 3D Importer (*Home → Import 3D*, or *File → Import 3D*) and
+   pick **`models/fbx/AllSnipers.fbx`** to bring in all 20 at once (or pick single files such as
+   `models/fbx/Raptor.fbx`). Keep the parts separate (don't merge meshes), then click
+   **Import**.
+3. **File them.** Drag each rifle Model (`Hawkeye`, `Goliath`, …) into
+   `ReplicatedStorage.SniperSystem.Models`. Where the rifles sit doesn't matter. Each Model's
+   name must be the rifle name.
+4. Press **Play**. With the test script installed, you'll spawn holding a sniper.
+
+If something looks off:
+
+- **Wrong size?** The files are in studs (written the way Roblox's Blender guide recommends).
+  If the importer preview shows a giant or tiny rifle, set its scale unit to studs. Either way,
+  `SniperKit` rescales each rifle to its real size when it builds the Tool.
+- **AllSnipers came in as one flat pile of parts** (`Hawkeye_Body`, `Goliath_Body`, …) instead of
+  20 Models? Import the single-rifle files from `models/fbx/` instead.
+- Part names like `Hawkeye_Body` or `Body.001` are fine; the skin system finds the slot inside
+  the name. You can also set a `Slot` attribute on a part.
+- For the pattern skins, upload the PNGs in `textures/` (Asset Manager → Bulk Import) and paste
+  each asset id into `SniperSystem.TextureIds`. Until you do, pattern skins use their colours.
+
 ## What's here
 
 ```
-models/obj/<Rifle>.obj/.mtl   one object per part; import these into Roblox Studio
-models/glb/<Rifle>.glb        the same rifles as glTF, for Studio or Blender
+models/fbx/<Rifle>.fbx        Roblox-ready FBX, one MeshPart per skin slot (recommended)
+models/fbx/AllSnipers.fbx     all 20 rifles in one file
+models/obj/, models/glb/      the same rifles as OBJ and glTF (Studio also takes these)
+studio/*.rbxmx                drag-into-Studio script bundles
 templates/<Rifle>_uv.png      UV layout for painting a custom skin
 textures/*.png                pattern textures for the camo/pattern skins
 previews/                     renders: every rifle, every skin
-roblox/                       Luau: skin system, tool builder, data, example
+roblox/                       the same Luau as plain .lua files
 tools/                        Python generator (regenerates everything)
 ```
 
 Each rifle has 344 to 1,384 triangles and is 4.5 to 7.5 studs long. Units are studs, Y is up,
-and the muzzle points down **-Z** (Roblox's LookVector).
+and the muzzle points down **-Z** (Roblox's LookVector). No part is stored rotated.
 
 ## Skin slots
 
@@ -77,37 +110,17 @@ views) at the same studs-per-pixel scale, so:
   same image. The left and right sides share the side view, so a design shows up mirrored on
   both sides.
 
-## Setting it up in Roblox Studio
-
-1. **Import the meshes.** Use *Home → Import 3D* (3D Importer) and pick
-   `models/obj/<Rifle>.obj`, or the `.glb`. Keep the parts **separate** (don't merge meshes);
-   the separate parts are what make skins work. The result should be a Model containing
-   MeshParts named `Body`, `Stock`, `Barrel` and so on.
-   - Check that the size is about 5–7 studs long and the barrel points along -Z. If your
-     importer flips or rescales it, fix the importer's scale and orientation settings and
-     import again. The Luau assumes the parts aren't rotated inside the model.
-   - If the importer adds prefixes like `Hawkeye_Body`, the skin system still finds the slot.
-     You can also set a `Slot` attribute on a part.
-2. Rename each Model to the rifle name (`Hawkeye`, `Goliath`, …) and put them all in a Folder at
-   **`ReplicatedStorage.Snipers`**.
-3. Add each file in `roblox/` as a **ModuleScript** in `ReplicatedStorage`, named after the
-   file without `.lua`: `SniperData`, `SkinCatalog`, `TextureIds`, `SniperSkins`, `SniperKit`.
-4. Optional: put `GiveSnipers.server.lua` in `ServerScriptService` as a Script. It gives each
-   player a random rifle in a random skin, so you can test right away.
-5. For the pattern skins, upload the PNGs in `textures/` (Asset Manager → Bulk Import) and paste
-   each asset id into `TextureIds`. Until you do, pattern skins fall back to their colours.
-
-### Using it
+## Scripting
 
 ```lua
-local RS = game:GetService("ReplicatedStorage")
-local SniperKit = require(RS.SniperKit)
-local SniperSkins = require(RS.SniperSkins)
+local system = game:GetService("ReplicatedStorage").SniperSystem
+local SniperKit = require(system.SniperKit)
+local SniperSkins = require(system.SniperSkins)
 
--- a ready-to-hold Tool: skin applied, Handle at the grip, everything welded,
--- Muzzle/Aim/Grip attachments added, stats copied onto attributes
-local tool = SniperKit.BuildTool(RS.Snipers.Raptor, "Galaxy")
-tool.Parent = player.Backpack
+-- a ready-to-hold Tool: size fixed, skin applied, Handle at the grip, everything
+-- welded, Muzzle/Aim/Grip attachments added, stats copied onto attributes
+local tool = SniperKit.Give(player, "Raptor", "Galaxy")
+-- or SniperKit.BuildTool("Raptor", "Galaxy") if you want to parent it yourself
 
 SniperKit.SetSkin(tool, "Gold Rush")               -- re-skin later (e.g. from a shop)
 local origin, direction = SniperKit.GetMuzzle(tool) -- where your bullet raycast starts
@@ -136,5 +149,12 @@ pip install numpy pillow
 python3 roblox-snipers/tools/build.py
 ```
 
-The script rebuilds every model, template, texture, preview, `SniperData.lua` and
-`SkinCatalog.lua`.
+The script rebuilds every model, template, texture, preview, the Luau data and the `.rbxmx`
+bundles. The FBX files come from Blender. Install its Python module (`pip install bpy`; each
+release needs one specific Python version) and run:
+
+```
+python roblox-snipers/tools/export_fbx.py
+```
+
+It converts the GLBs to FBX, then re-imports every file to check part names and sizes.

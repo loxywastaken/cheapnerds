@@ -1,6 +1,6 @@
 --!strict
--- SniperSkins (ModuleScript, put in ReplicatedStorage next to SniperData,
--- SkinCatalog and TextureIds).
+-- SniperSkins (ModuleScript inside the SniperSystem folder, next to
+-- SniperData, SkinCatalog and TextureIds).
 --
 -- Every rifle is built from MeshParts named after the same 15 slots
 -- (Body, Stock, Pad, Grip, Barrel, Handguard, Muzzle, Scope, Lens, Mount,
@@ -19,11 +19,10 @@
 --       Atlas   = { Raptor = "rbxassetid://123456" },
 --   })
 
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
-local SniperData = require(ReplicatedStorage:WaitForChild("SniperData"))
-local SkinCatalog = require(ReplicatedStorage:WaitForChild("SkinCatalog"))
-local TextureIds = require(ReplicatedStorage:WaitForChild("TextureIds"))
+local root = script.Parent
+local SniperData = require(root:WaitForChild("SniperData"))
+local SkinCatalog = require(root:WaitForChild("SkinCatalog"))
+local TextureIds = require(root:WaitForChild("TextureIds"))
 
 export type Look = { Color: Color3, Material: Enum.Material, Texture: string? }
 
@@ -58,18 +57,17 @@ function SniperSkins.List(): { string }
 	return table.clone(order)
 end
 
--- Which slot a part fills. Accepts "Body", or importer names like "Hawkeye_Body".
-local function slotOf(part: Instance): string?
+-- Which slot a part fills. Accepts "Body", and importer names like
+-- "Hawkeye_Body" or "Body.001". A "Slot" attribute wins over the name.
+function SniperSkins.SlotOf(part: Instance): string?
 	local tagged = part:GetAttribute("Slot")
 	if typeof(tagged) == "string" then
 		return tagged
 	end
-	if table.find(SniperSkins.Slots, part.Name) then
-		return part.Name
-	end
-	local tail = part.Name:match("(%a+)%d*$")
-	if tail and table.find(SniperSkins.Slots, tail) then
-		return tail
+	for word in part.Name:gmatch("%a+") do
+		if table.find(SniperSkins.Slots, word) then
+			return word
+		end
 	end
 	return nil
 end
@@ -78,7 +76,8 @@ local function textureId(name: string?): string?
 	if not name then
 		return nil
 	end
-	local id = TextureIds[name]
+	-- a texture is either a name from TextureIds or an asset id used directly
+	local id = if name:find("://") then name else TextureIds[name]
 	if id == nil or id == "" or id == "rbxassetid://0" then
 		if not warned[name] then
 			warned[name] = true
@@ -109,7 +108,7 @@ function SniperSkins.Apply(model: Instance, skinName: string, rifleName: string?
 		if not part:IsA("BasePart") then
 			continue
 		end
-		local slot = slotOf(part)
+		local slot = SniperSkins.SlotOf(part)
 		if not slot then
 			continue
 		end

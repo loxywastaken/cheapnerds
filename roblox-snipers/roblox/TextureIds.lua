@@ -1,4 +1,4 @@
--- TextureIds (ModuleScript in ReplicatedStorage).
+-- TextureIds (ModuleScript inside the SniperSystem folder).
 --
 -- Upload each PNG from roblox-snipers/textures/ (Studio: Asset Manager > Bulk
 -- Import, or the Creator Hub), then paste its id here. Pattern skins skip a

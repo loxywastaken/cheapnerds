@@ -11,6 +11,7 @@ Writes (relative to roblox-snipers/):
     previews/*.png                 renders of every rifle and every skin
     roblox/SniperData.lua          per-rifle factory colours, stats, attachments
     roblox/SkinCatalog.lua         every skin from skins.py
+    studio/*.rbxmx                 the Luau packed as drag-into-Studio files
 
 Needs Python 3 with numpy and Pillow.
 """
@@ -260,6 +261,8 @@ def write_sniper_data(rifles, meshes_by_key, atlas_scale):
         L.append(f"\tDisplayName = {lua_str(r.key)},")
         L.append(f"\tDescription = {lua_str(r.blurb)},")
         L.append("\tParts = {" + ", ".join(lua_str(n) for n in meshes) + "},")
+        size = np.max([m.hi for m in meshes.values()], 0) - np.min([m.lo for m in meshes.values()], 0)
+        L.append(f"\tSize = {lua_vec(size)}, -- studs; SniperKit rescales imports to this")
         L.append(f"\tStudsPerUV = {1 / atlas_scale[r.key]:.3f}, -- skin texture covers this many studs")
         L.append("\tStats = {")
         for k, v in r.stats.items():
@@ -281,6 +284,39 @@ def write_sniper_data(rifles, meshes_by_key, atlas_scale):
     L.append("return SniperData")
     with open(out("roblox", "SniperData.lua"), "w") as fh:
         fh.write("\n".join(L) + "\n")
+
+
+def write_rbxmx():
+    """Drag-and-drop Studio files holding the Luau, so nothing is pasted by hand."""
+    refs = iter(range(1, 10 ** 6))
+
+    def item(cls, name, source=None, children=()):
+        props = f'<string name="Name">{name}</string>'
+        if source is not None:
+            # a CDATA section can't contain its own terminator
+            safe = source.replace("]]>", "]]]]><![CDATA[>")
+            props += f'<ProtectedString name="Source"><![CDATA[{safe}]]></ProtectedString>'
+        inner = "".join(children)
+        return f'<Item class="{cls}" referent="RBX{next(refs):08d}">' \
+               f"<Properties>{props}</Properties>{inner}</Item>"
+
+    def doc(*items):
+        return ('<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" '
+                'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+                'xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">'
+                + "".join(items) + "</roblox>\n")
+
+    def lua(name):
+        with open(os.path.join(ROOT, "roblox", name)) as fh:
+            return fh.read()
+
+    modules = ["SniperData", "SkinCatalog", "TextureIds", "SniperSkins", "SniperKit"]
+    system = item("Folder", "SniperSystem", children=[item("ModuleScript", m, lua(f"{m}.lua")) for m in modules]
+                  + [item("Folder", "Models")])
+    with open(out("studio", "SniperSystem.rbxmx"), "w") as fh:
+        fh.write(doc(system))
+    with open(out("studio", "GiveSnipers.rbxmx"), "w") as fh:
+        fh.write(doc(item("Script", "GiveSnipers", lua("GiveSnipers.server.lua"))))
 
 
 def write_skin_catalog():
@@ -551,6 +587,7 @@ def main():
         print(f"{r.key:10} {len(meshes):5d} {sum(len(m.P) for m in meshes):6d} {hi[2] - lo[2]:6.2f}s")
     write_sniper_data(rifles, meshes_by_key, atlas_scale)
     write_skin_catalog()
+    write_rbxmx()
     textures = make_textures()
 
     # contact sheet at one shared scale so sizes compare honestly

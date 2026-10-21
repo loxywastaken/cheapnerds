@@ -1,15 +1,13 @@
 -- Example Script (ServerScriptService). Gives every player a random rifle in a
--- random skin when they spawn. Expects the imported rifle Models in a Folder
--- at ReplicatedStorage.Snipers, each named exactly like in SniperData.Order.
+-- random skin each time they spawn. Expects ReplicatedStorage.SniperSystem
+-- with the imported rifle Models in its Models folder.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local SniperData = require(ReplicatedStorage:WaitForChild("SniperData"))
-local SniperKit = require(ReplicatedStorage:WaitForChild("SniperKit"))
-local SniperSkins = require(ReplicatedStorage:WaitForChild("SniperSkins"))
-
-local folder = ReplicatedStorage:WaitForChild("Snipers")
+local system = ReplicatedStorage:WaitForChild("SniperSystem")
+local SniperKit = require(system:WaitForChild("SniperKit"))
+local SniperSkins = require(system:WaitForChild("SniperSkins"))
 
 local function pick(list)
 	return list[math.random(1, #list)]
@@ -17,13 +15,16 @@ end
 
 Players.PlayerAdded:Connect(function(player)
 	player.CharacterAdded:Connect(function()
-		local rifle = pick(SniperData.Order)
-		local template = folder:FindFirstChild(rifle)
-		if not template then
-			warn(`missing model ReplicatedStorage.Snipers.{rifle}`)
+		local rifles = {}
+		for _, model in system:WaitForChild("Models"):GetChildren() do
+			if model:IsA("Model") then
+				table.insert(rifles, model.Name)
+			end
+		end
+		if #rifles == 0 then
+			warn("SniperSystem.Models is empty - import the rifles and drop them in there")
 			return
 		end
-		local tool = SniperKit.BuildTool(template, pick(SniperSkins.List()))
-		tool.Parent = player:WaitForChild("Backpack")
+		SniperKit.Give(player, pick(rifles), pick(SniperSkins.List()))
 	end)
 end)

@@ -1,19 +1,21 @@
 --!strict
--- SniperKit (ModuleScript in ReplicatedStorage).
+-- SniperKit (ModuleScript inside the SniperSystem folder).
 --
 -- Turns an imported rifle Model into a ready-to-hold Tool:
+--   * fixes the size if the importer scaled it (uses SniperData.Size)
 --   * applies a skin
 --   * adds an invisible Handle at the rifle's grip and welds every part to it
 --   * adds "Muzzle", "Aim" and "Grip" Attachments for your shooting code
 --   * copies the arena stats onto the Tool as attributes
 --
---   local tool = SniperKit.BuildTool(ReplicatedStorage.Snipers.Raptor, "Galaxy")
+-- Put the imported rifle Models in SniperSystem.Models, named Hawkeye, Goliath, ...
+--
+--   local tool = SniperKit.BuildTool("Raptor", "Galaxy")
 --   tool.Parent = player.Backpack
 
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
-local SniperData = require(ReplicatedStorage:WaitForChild("SniperData"))
-local SniperSkins = require(ReplicatedStorage:WaitForChild("SniperSkins"))
+local root = script.Parent
+local SniperData = require(root:WaitForChild("SniperData"))
+local SniperSkins = require(root:WaitForChild("SniperSkins"))
 
 local SniperKit = {}
 
@@ -21,21 +23,42 @@ local SniperKit = {}
 -- front (-Z) points down the barrel, which is how Roblox holds tools forward.
 SniperKit.Grip = CFrame.new(0, 0, 0)
 
-local function findPart(root: Instance, slot: string): BasePart?
-	for _, d in root:GetDescendants() do
-		if d:IsA("BasePart") and (d.Name == slot or d:GetAttribute("Slot") == slot) then
+local function findPart(container: Instance, slot: string): BasePart?
+	for _, d in container:GetDescendants() do
+		if d:IsA("BasePart") and SniperSkins.SlotOf(d) == slot then
 			return d
 		end
 	end
 	return nil
 end
 
-function SniperKit.BuildTool(template: Model, skinName: string?, rifleName: string?): Tool
-	local rifle = rifleName or template.Name
-	local data = SniperData[rifle]
-	assert(data, `[SniperKit] no SniperData for "{rifle}"`)
+local function modelsFolder(): Instance
+	local folder = root:FindFirstChild("Models")
+	assert(folder, "[SniperKit] put your imported rifles in a Folder named Models inside SniperSystem")
+	return folder
+end
 
-	local model = template:Clone()
+-- Importers sometimes treat file units as metres; scale back to the real size.
+local function fixScale(model: Model, want: Vector3)
+	local have = model:GetExtentsSize()
+	local longest = math.max(have.X, have.Y, have.Z)
+	local target = math.max(want.X, want.Y, want.Z)
+	if longest > 0 and math.abs(longest / target - 1) > 0.03 then
+		model:ScaleTo(model:GetScale() * target / longest)
+	end
+end
+
+function SniperKit.BuildTool(template: Model | string, skinName: string?): Tool
+	local source: Model = if typeof(template) == "string"
+		then modelsFolder():FindFirstChild(template) :: Model
+		else template
+	assert(source, `[SniperKit] no rifle model named "{tostring(template)}" in SniperSystem.Models`)
+	local rifle = source:GetAttribute("Sniper") or source.Name
+	local data = SniperData[rifle]
+	assert(data, `[SniperKit] no SniperData for "{rifle}" (rename the model to the rifle's name)`)
+
+	local model = source:Clone()
+	fixScale(model, data.Size)
 	SniperSkins.Apply(model, skinName or "Factory", rifle)
 
 	local tool = Instance.new("Tool")
@@ -61,8 +84,9 @@ function SniperKit.BuildTool(template: Model, skinName: string?, rifleName: stri
 	handle.CanQuery = false
 	handle.CanTouch = false
 	handle.Massless = true
-	-- grip parts sit unrotated in the imported model, so the rifle's axes carry over
-	handle.CFrame = CFrame.new((gripPart.CFrame * CFrame.new(gripInfo.Offset)).Position)
+	-- keep the part's rotation so the Handle faces down the barrel even if
+	-- the importer turned the whole model
+	handle.CFrame = gripPart.CFrame * CFrame.new(gripInfo.Offset)
 	handle.Parent = tool
 
 	for _, part in model:GetDescendants() do
@@ -90,6 +114,13 @@ function SniperKit.BuildTool(template: Model, skinName: string?, rifleName: stri
 			att.Parent = part
 		end
 	end
+	return tool
+end
+
+-- Builds a rifle and puts it in the player's Backpack.
+function SniperKit.Give(player: Player, rifleName: string, skinName: string?): Tool
+	local tool = SniperKit.BuildTool(rifleName, skinName)
+	tool.Parent = player:WaitForChild("Backpack")
 	return tool
 end
 
