@@ -1,0 +1,97 @@
+# Royal materials (factory colours)
+
+newmtl Body
+Kd 0.8314 0.6863 0.2157
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Stock
+Kd 0.3569 0.2039 0.0941
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Pad
+Kd 0.1647 0.0863 0.0431
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Barrel
+Kd 0.1647 0.1647 0.1882
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Muzzle
+Kd 0.8314 0.6863 0.2157
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Scope
+Kd 0.1647 0.1647 0.1882
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Lens
+Kd 0.6078 0.9059 1.0000
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Mount
+Kd 0.8314 0.6863 0.2157
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Magazine
+Kd 0.8314 0.6863 0.2157
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Bolt
+Kd 0.8314 0.6863 0.2157
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Trigger
+Kd 0.8314 0.6863 0.2157
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Accent
+Kd 0.8314 0.6863 0.2157
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2

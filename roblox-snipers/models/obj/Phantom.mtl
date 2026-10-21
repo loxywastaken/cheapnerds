@@ -1,0 +1,113 @@
+# Phantom materials (factory colours)
+
+newmtl Body
+Kd 0.0824 0.0863 0.1020
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Stock
+Kd 0.0824 0.0863 0.1020
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Pad
+Kd 0.0471 0.0471 0.0549
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Grip
+Kd 0.1216 0.1216 0.1333
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Barrel
+Kd 0.1216 0.1255 0.1490
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Handguard
+Kd 0.1216 0.1255 0.1490
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Muzzle
+Kd 0.1216 0.1255 0.1490
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Scope
+Kd 0.0824 0.0863 0.1020
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Lens
+Kd 0.5412 0.3608 1.0000
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Mount
+Kd 0.2000 0.2000 0.2118
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Magazine
+Kd 0.1216 0.1255 0.1490
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
+
+newmtl Bolt
+Kd 0.7216 0.7373 0.7686
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Trigger
+Kd 0.1098 0.1098 0.1216
+Ka 0 0 0
+Ks 0.40 0.40 0.40
+Ns 40
+d 1
+illum 2
+
+newmtl Accent
+Kd 0.5412 0.3608 1.0000
+Ka 0 0 0
+Ks 0.05 0.05 0.05
+Ns 40
+d 1
+illum 2
